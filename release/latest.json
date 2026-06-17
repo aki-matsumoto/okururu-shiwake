@@ -1,10 +1,10 @@
 {
-  "version": "0.6.1",
-  "title": "Release v0.6.1",
+  "version": "0.6.2",
+  "title": "Release v0.6.2",
   "force_min_version": "0.0.0",
-  "message": "デパコスマーク：ファッション雑貨カテゴリ（カテゴリ未取得/デフォルト時含む）では表示しないよう確定ガードを追加。",
+  "message": "ITコード印刷を修正：行の「ラベル印刷」ドロップダウン（存在しない/別物）方式を廃止し、ReCORE標準の page-level「在庫ラベルを印刷する」を実行する方式に変更。ITコード=在庫ラベル、PDコード=カタログで別物。一括/個別ボタンとも在庫ラベル印刷を呼ぶ（ケース単位）。",
   "min_version": "0.0.0",
-  "released_at": "2026-06-17T06:31:23.714Z",
-  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.6.1",
-  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.6.1.zip"
+  "released_at": "2026-06-17T12:13:14.866Z",
+  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.6.2",
+  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.6.2.zip"
 }

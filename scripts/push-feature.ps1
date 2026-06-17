@@ -1,56 +1,46 @@
 <#
 .SYNOPSIS
-    OneDrive 作業フォルダを C:\dev\okururu-shiwake に同期し、feature ブランチで commit & push。
-.DESCRIPTION
-    OneDrive パスは ONEDRIVE_REPO 環境変数から読む（日本語パス隔離・このファイルを ASCII 安全に保つ）。
+    C:\dev\okururu-shiwake を直接編集する運用。現在の変更を feature ブランチで commit & push。
 
-    初回セットアップ（PowerShell）:
-        $onedrive = 'C:\Users\<you>\OneDrive\ドキュメント\Claude\Projects\リコアカタログへ商品リストをインポート\okururu-shiwake'
-        [Environment]::SetEnvironmentVariable('ONEDRIVE_REPO', $onedrive, 'User')
-        $env:ONEDRIVE_REPO = $onedrive
+.NOTE
+    2026-06 改訂: OneDrive 同期(robocopy)方式を廃止。C:\dev\okururu-shiwake が唯一の作業場所。
+    最新 main から始めたい場合は先に:
+        git checkout main; git pull
+    その後 C:\dev のファイルを編集してから本スクリプトを実行する。
 
-    使い方:
-        .\scripts\push-feature.ps1 feature/v0.3.1-fix "Fix: ..."
-.PARAMETER Branch  feature ブランチ名
-.PARAMETER Message commit メッセージ
+.USAGE
+    .\scripts\push-feature.ps1 feature/vX.Y.Z-xxx "Fix: ..."
 #>
 param(
     [Parameter(Mandatory = $true, Position = 0)][string]$Branch,
     [Parameter(Mandatory = $true, Position = 1)][string]$Message
 )
 $ErrorActionPreference = 'Continue'
-function Fail($m) { Write-Host ""; Write-Host "ERROR: $m" -ForegroundColor Red; exit 1 }
+function Fail($m){ Write-Host ""; Write-Host "ERROR: $m" -ForegroundColor Red; exit 1 }
 function Run-Git { param([string[]]$GitArgs, [string]$FailMsg) & git @GitArgs; if ($LASTEXITCODE -ne 0) { Fail $FailMsg } }
 
 $RepoDir = "C:\dev\okururu-shiwake"
 $RepoUrl = "https://github.com/aki-matsumoto/okururu-shiwake"
-$OneDriveDir = $env:ONEDRIVE_REPO
-if (-not $OneDriveDir) { Fail "ONEDRIVE_REPO is not set." }
-if (-not (Test-Path $RepoDir)) { Fail "RepoDir not found: $RepoDir (初回は INSTALL.md の手順で git clone)" }
-if (-not (Test-Path $OneDriveDir)) { Fail "OneDriveDir not found: $OneDriveDir" }
-
+if (-not (Test-Path $RepoDir)) { Fail "RepoDir not found: $RepoDir" }
 Set-Location $RepoDir
-Write-Host "[1/5] checkout main + pull" -ForegroundColor Cyan
-Run-Git @('checkout', 'main') 'git checkout main failed'
-Run-Git @('pull', '--ff-only') 'git pull failed'
 
-Write-Host "[2/5] feature branch: $Branch" -ForegroundColor Cyan
-if (& git branch --list $Branch) { Run-Git @('checkout', $Branch) 'checkout existing failed' }
+Write-Host "[1/4] feature branch: $Branch (carries current edits)" -ForegroundColor Cyan
+if (& git branch --list $Branch) { Run-Git @('checkout', $Branch) 'checkout (existing) failed' }
 else { Run-Git @('checkout', '-b', $Branch) 'checkout -b failed' }
 
-Write-Host "[3/5] robocopy OneDrive -> C:\dev (del除外は手動 git rm)" -ForegroundColor Cyan
-& robocopy $OneDriveDir $RepoDir /E /XD .git node_modules .vscode .idea dist /XF *.bak Thumbs.db .DS_Store /NFL /NDL /NJH /NJS /nc /ns /np
-if ($LASTEXITCODE -gt 7) { Fail "robocopy failed (exit=$LASTEXITCODE)" }
-
-Write-Host "[4/5] git status" -ForegroundColor Cyan
+Write-Host "[2/4] git status" -ForegroundColor Cyan
 $status = & git status --short
-if (-not $status) { Write-Warning "No changes."; exit 0 }
+if (-not $status) { Write-Warning "No changes. Edit files under C:\dev\okururu-shiwake first, then re-run."; exit 0 }
 Write-Host $status -ForegroundColor Gray
 
-Write-Host "[5/5] commit + push" -ForegroundColor Cyan
+Write-Host "[3/4] commit" -ForegroundColor Cyan
 Run-Git @('add', '-A') 'git add failed'
 Run-Git @('commit', '-m', $Message) 'git commit failed'
+
+Write-Host "[4/4] push" -ForegroundColor Cyan
 Run-Git @('push', '-u', 'origin', $Branch) 'git push failed'
 
+Write-Host ""
 Write-Host "DONE" -ForegroundColor Green
-Write-Host "PR: $RepoUrl/pull/new/$Branch" -ForegroundColor White
+Write-Host "  PR: $RepoUrl/pull/new/$Branch" -ForegroundColor White
+Write-Host "  After merge, CI auto-creates the version tag and updates release/latest.json" -ForegroundColor Gray

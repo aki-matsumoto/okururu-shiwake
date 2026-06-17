@@ -43,6 +43,8 @@
       const c = _rowCosmeCache.get(row);
       if (c && c.expires > now) return c.value;
       const rowText = (row.textContent || '');
+      // 確定ガード：ファッション雑貨は（カテゴリ未取得/デフォルトでも）デパコス非表示
+      if (/ファッション雑貨/.test(rowText)) { _rowCosmeCache.set(row, { value: false, expires: now + TTL }); return false; }
       const cat = extractCategoryFromRowText(rowText);
       let value;
       if (!cat) {

@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "オクルウル 仕分け支援ツール (ReCORE)",
+  "version": "0.6.0",
+  "description": "リコア(ReCORE)買取ケース詳細画面の仕分け支援。卸/リコアマーク・デパコスマーク・メルカリ出品禁止マーク・ITコードマークを自動表示し、ITコードラベルの個別/一括印刷を補助します。",
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "オクルウル 仕分け支援ツール"
+  },
+  "permissions": [
+    "alarms",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://app.recore-pos.com/*",
+    "https://raw.githubusercontent.com/aki-matsumoto/okururu-shiwake/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://app.recore-pos.com/*"
+      ],
+      "js": [
+        "utils/scroll_perf_guard.js",
+        "utils/storage.js",
+        "utils/logger.js",
+        "utils/selectors.js",
+        "utils/detector.js",
+        "utils/badge.js",
+        "utils/modal.js",
+        "utils/synthetic_event.js",
+        "data/shiwake_brands.js",
+        "content/s0_rows.js",
+        "content/s1_oroshi_recore_mark.js",
+        "content/s2_brand_mark.js",
+        "content/s3_itcode_mark.js",
+        "content/s4_itcode_print.js",
+        "content/s5_conflict_warn.js",
+        "content/s6_hide_fields.js",
+        "content/s7_update_notifier.js",
+        "content/s8_wga_mark.js",
+        "content/main.js"
+      ],
+      "css": [
+        "styles/extension.css"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}

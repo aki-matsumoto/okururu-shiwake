@@ -1,0 +1,3300 @@
+/* ============================================================
+   オクルウル ミス防止拡張機能 - 注入スタイル
+   z-index は 99999 以上で前面表示。リコア既存UIと干渉しない設計。
+   ============================================================ */
+
+/* v1.71.26: F82 箱分けモードで選択中の行ハイライト */
+.okururu-f82-row-selected {
+  background: rgba(25, 118, 210, 0.12) !important;
+  outline: 2px dashed #1976D2 !important;
+  outline-offset: -2px;
+}
+.okururu-f82-badge {
+  vertical-align: middle;
+}
+
+/* v1.25.65: F14 オペレーションフェーズ見出し（4-9 商品ループ／10+ ケース全体） */
+.okururu-f14-phase-header {
+  margin: 12px 4px 6px;
+  padding: 6px 10px;
+  background: linear-gradient(90deg, rgba(70,134,219,0.10), rgba(70,134,219,0.02));
+  border-left: 4px solid #4472C4;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #1F3864;
+  letter-spacing: 0.5px;
+}
+.okururu-f14-modal-phase {
+  margin: 18px 0 8px;
+  padding: 8px 14px;
+  background: linear-gradient(90deg, rgba(70,134,219,0.12), rgba(70,134,219,0.02));
+  border-left: 4px solid #4472C4;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1F3864;
+  letter-spacing: 0.5px;
+}
+
+/* v1.25.62: F17 商品名横のメルカリ検索リンク */
+.okururu-f17-product-mercari {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 8px;
+  background: #FA5050;
+  color: #fff !important;
+  border-radius: 10px;
+  font-size: 11px;
+  text-decoration: none;
+  font-weight: 600;
+}
+.okururu-f17-product-mercari:hover {
+  background: #d83838;
+}
+
+/* v1.25.50: F17 計算モーダル冒頭のタグ選択 + 推奨グレード適用セクション */
+.okururu-f17-tag-section {
+  background: #f5f7fa;
+  border: 1px solid #e4e7ed;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+.okururu-f17-tag-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: #606266;
+}
+.okururu-f17-tag-title { font-weight: 600; }
+/* v1.25.80: 反映対象タグ数のインライン表示 */
+.okururu-f17-tag-count {
+  margin-left: 6px;
+  font-size: 11px;
+  color: #34A853;
+  font-weight: 600;
+}
+.okururu-f17-tag-current b { color: #303133; margin-left: 4px; }
+.okururu-f17-tag-group { margin-bottom: 6px; }
+.okururu-f17-tag-group:last-of-type { margin-bottom: 4px; }
+.okururu-f17-tag-group-title {
+  font-size: 11px;
+  color: #909399;
+  margin-bottom: 4px;
+}
+.okururu-f17-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.okururu-f17-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #fff;
+  border: 1px solid #dcdfe6;
+  border-radius: 14px;
+  padding: 3px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.okururu-f17-tag-chip input { margin: 0; cursor: pointer; }
+/* v1.25.80→82: チェック済タグの見た目を「行タグ反映用（緑）」「グレード判定のみ（青）」で区別 */
+/* 行タグ反映用 (kind='tag') — 緑ハイライト＋✓ */
+.okururu-f17-tag-chip-tag:has(input:checked) {
+  background: #E6F4EA;
+  border-color: #34A853;
+  color: #1E6B36;
+  font-weight: 700;
+  box-shadow: 0 0 0 1px #34A853 inset;
+}
+.okururu-f17-tag-chip-tag:has(input:checked) span::before {
+  content: '✓ ';
+  color: #34A853;
+  font-weight: 700;
+}
+/* v1.73.0: ヘルプボタン（❓ アイコン）／ヘルプポップアップ */
+.okururu-f17-help-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-left: 4px;
+  padding: 0;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  border-radius: 50%;
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+  color: #475569;
+}
+.okururu-f17-help-btn:hover {
+  background: #fff8e1;
+  border-color: #c89600;
+  color: #b45309;
+}
+.okururu-f17-help-launcher {
+  margin-top: 8px;
+  text-align: right;
+}
+.okururu-f17-help-all-btn {
+  padding: 5px 12px;
+  border: 1px solid #c89600;
+  background: #fff8e1;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #b45309;
+  cursor: pointer;
+}
+.okururu-f17-help-all-btn:hover {
+  background: #ffecb3;
+}
+.okururu-f17-help-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.okururu-f17-help-popup-inner {
+  background: #fff;
+  border-radius: 8px;
+  max-width: 540px;
+  width: 100%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+.okururu-f17-help-popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+.okururu-f17-help-popup-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111;
+}
+.okururu-f17-help-popup-close {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  color: #64748b;
+  border-radius: 4px;
+}
+.okururu-f17-help-popup-close:hover {
+  background: #e2e8f0;
+  color: #111;
+}
+.okururu-f17-help-popup-body {
+  padding: 16px;
+  overflow-y: auto;
+  flex: 1;
+}
+.okururu-f17-help-section {
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed #e2e8f0;
+}
+.okururu-f17-help-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.okururu-f17-help-tagname {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 6px;
+}
+.okururu-f17-help-summary {
+  font-size: 13px;
+  color: #475569;
+  background: #fff8e1;
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  border-left: 3px solid #c89600;
+}
+.okururu-f17-help-svg {
+  margin: 10px 0;
+  text-align: center;
+}
+.okururu-f17-help-body {
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: #334155;
+}
+.okururu-f17-help-line {
+  min-height: 1.2em;
+}
+
+/* v1.73.0: 実物写真サンプル */
+.okururu-f17-help-photos {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #e2e8f0;
+}
+.okururu-f17-help-photos-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  margin-bottom: 10px;
+}
+.okururu-f17-help-photo-group {
+  margin-bottom: 14px;
+}
+.okururu-f17-help-photo-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 3px;
+  margin-bottom: 6px;
+}
+.okururu-f17-help-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.okururu-f17-help-photo-tile {
+  margin: 0;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 4px;
+}
+.okururu-f17-help-photo-tile img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  cursor: zoom-in;
+  border-radius: 2px;
+  display: block;
+}
+.okururu-f17-help-photo-tile figcaption {
+  font-size: 10px;
+  color: #475569;
+  margin-top: 4px;
+  line-height: 1.3;
+}
+.okururu-f17-help-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+  padding: 24px;
+}
+.okururu-f17-help-lightbox img {
+  max-width: 95vw;
+  max-height: 90vh;
+  object-fit: contain;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* グレード判定のみ (kind='grade') — 青系・破線枠で「行タグには反映しない」と分かるように */
+.okururu-f17-tag-chip-grade {
+  border-style: dashed;
+  background: #F8FAFE;
+}
+.okururu-f17-tag-chip-grade:has(input:checked) {
+  background: #ECF5FF;
+  border-color: #4472C4;
+  border-style: solid;
+  color: #1F3864;
+  font-weight: 700;
+  box-shadow: 0 0 0 1px #4472C4 inset;
+}
+.okururu-f17-tag-chip-grade:has(input:checked) span::before {
+  content: '📊 ';
+  color: #4472C4;
+}
+/* グループ見出しもグレード専用は青／タグ用は通常 */
+.okururu-f17-tag-group-grade .okururu-f17-tag-group-title {
+  color: #4472C4;
+  font-style: italic;
+}
+.okururu-f17-recommend-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed #dcdfe6;
+}
+.okururu-f17-recommend-lbl { color: #606266; font-size: 12px; }
+.okururu-f17-recommend-val {
+  flex: 1;
+  font-size: 13px;
+  color: #303133;
+}
+.okururu-f17-recommend-val b { color: #b88600; }
+.okururu-btn.okururu-f17-apply-recommend {
+  background: #e6a23c;
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.okururu-btn.okururu-f17-apply-recommend:disabled {
+  background: #c0c4cc;
+  cursor: not-allowed;
+}
+.okururu-f17-recommend-note {
+  margin-top: 4px;
+  font-size: 11px;
+  color: #909399;
+  line-height: 1.4;
+}
+/* v1.65.0: 新人モード時はグレード推奨の理由を強調 */
+.okururu-f17-recommend-note.okururu-f17-recommend-note-beginner {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: linear-gradient(180deg, #FFFBEA 0%, #FFF4C2 100%);
+  border-left: 4px solid #E1B007;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #45506B;
+  line-height: 1.6;
+  font-weight: 500;
+}
+.okururu-f17-recommend-note.okururu-f17-recommend-note-beginner b {
+  color: #2F528F;
+}
+/* v1.25.77: タグ→推奨→グレード変更→一括反映 の流れヒント */
+.okururu-f17-flow-hint {
+  margin-top: 8px;
+  padding: 6px 10px;
+  background: #ECF5FF;
+  border-left: 3px solid #4472C4;
+  border-radius: 3px;
+  font-size: 11px;
+  color: #1F3864;
+  line-height: 1.5;
+}
+
+/* v1.25.49: F17 計算モーダル冒頭のグレード比較ヘッダー（v1.25.50 で置き換え済み・スタイルは保持） */
+.okururu-f17-grade-compare {
+  background: #f5f7fa;
+  border: 1px solid #e4e7ed;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+.okururu-f17-grade-compare.okururu-f17-grade-mismatch {
+  background: #fff8e6;
+  border-color: #f0c36d;
+}
+.okururu-f17-gc-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+}
+.okururu-f17-gc-cell {
+  flex: 1;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  padding: 6px 8px;
+}
+.okururu-f17-gc-lbl {
+  font-size: 11px;
+  color: #666;
+  margin-bottom: 2px;
+}
+.okururu-f17-gc-val {
+  font-size: 14px;
+  font-weight: 700;
+  color: #303133;
+}
+.okururu-f17-grade-mismatch .okururu-f17-gc-val {
+  color: #b88600;
+}
+.okururu-f17-gc-arrow {
+  font-size: 18px;
+  color: #909399;
+  flex: 0 0 auto;
+}
+.okururu-f17-grade-mismatch .okururu-f17-gc-arrow {
+  color: #e6a23c;
+}
+.okururu-f17-gc-tags {
+  margin-top: 6px;
+  font-size: 11px;
+  color: #606266;
+  text-align: center;
+}
+.okururu-f17-gc-warn {
+  margin-top: 8px;
+  padding: 6px 8px;
+  background: #fef0f0;
+  border-left: 3px solid #f56c6c;
+  border-radius: 3px;
+  color: #802929;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* ---- バッジホスト（リコアの黒帯ナビバーの下）---- */
+.okururu-badge-host {
+  position: fixed;
+  top: 60px;          /* 黒帯ナビバー（約50px）の直下に配置 */
+  right: 16px;
+  z-index: 99998;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  pointer-events: none;
+  opacity: 0.85;
+  transition: opacity 0.2s ease-in-out;
+}
+.okururu-badge-host:hover {
+  opacity: 1;          /* ホバー時は完全不透明に（操作時は見やすく）*/
+}
+.okururu-badge-host > .okururu-badge,
+.okururu-badge-host > .okururu-badge * {
+  pointer-events: auto;   /* ホスト配下はクリック可（チェックボックス含む）*/
+}
+
+/* ---- バッジ ---- */
+.okururu-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 24px 5px 8px;
+  border-radius: 4px;
+  font-size: 12.5px;
+  font-family: 'Yu Gothic UI', 'Meiryo', 'Segoe UI', sans-serif;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  max-width: 440px;
+}
+.okururu-badge-info {
+  background: #E7EFFB;
+  color: #143C8C;
+  border: 1px solid #4472C4;
+}
+.okururu-badge-warning {
+  background: #FFF4D6;
+  color: #663300;
+  border: 1px solid #E0A030;
+}
+.okururu-badge-danger {
+  background: #FDE2E2;
+  color: #800;
+  border: 1px solid #C00000;
+}
+.okururu-badge-content {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.okururu-badge-close {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: inherit;
+  width: 22px;
+  height: 22px;
+  line-height: 1;
+  border-radius: 3px;
+}
+.okururu-badge-close:hover { background: rgba(0,0,0,0.08); }
+
+.okururu-badge-inline {
+  margin: 4px 0;
+}
+
+/* ---- F3-A バッジ内ウィジェット ---- */
+.okururu-f3a-row1 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+/* v1.63.9: クロさん FB「チェックは詰めて」。
+   行ごとの border-top/bottom が二重線になって縦に間延びしていたので、
+   border-bottom を削って border-top だけ、padding も 6px→2px に詰める。
+   隣接同士で border-top が積み重なるので、視覚的には行間に 1px の薄い区切り線が残る形。 */
+.okururu-f3a-row-checks {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 2px 0;
+  margin-bottom: 0;
+  border-top: 1px solid #E5EBF4;
+  border-bottom: none;
+}
+/* v1.63.9: ●（赤）・●（黒色）を実色で表示。文字色だけだとサイズが他と揃わないので
+   font-weight を上げて視認性を確保。 */
+.okururu-f3a-dot-red {
+  color: #dc2626;
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 1;
+  vertical-align: middle;
+}
+.okururu-f3a-dot-black {
+  color: #000;
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 1;
+  vertical-align: middle;
+}
+/* v1.71.0 (2026-05-21): クロさん指示で「●（緑）：期限3か月以内」を追加 */
+.okururu-f3a-dot-green {
+  color: #16a34a;
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 1;
+  vertical-align: middle;
+}
+.okururu-f3a-row2 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.okururu-f3a-note {
+  font-size: 11px;
+  color: #555;
+  font-style: normal;
+}
+/* v1.25.84: 送料控除クーポンの注意書き（コンパクト） */
+.okururu-f3a-shipping-note {
+  margin-top: 4px;
+  padding: 4px 8px;
+  font-size: 11px;
+  color: #663300;
+  background: #FFF8E5;
+  border-left: 3px solid #E1B007;
+  border-radius: 3px;
+  line-height: 1.4;
+}
+/* v1.63.8: 「※紙の申込書を見て…」注釈をアンケート回答行の直下に置くための専用行スタイル。
+   shipping-note より色を抑えめにして主張を弱める（ガイドの読み物として目に入る程度）。 */
+.okururu-f3a-row-note {
+  margin: 2px 0;
+  padding: 4px 8px;
+  background: #F7F9FC;
+  border-left: 3px solid #B8C5DA;
+  border-radius: 3px;
+  line-height: 1.35;
+}
+.okururu-f3a-row-note .okururu-f3a-note {
+  font-size: 11px;
+  color: #555;
+}
+.okururu-f3a-help {
+  background: #6C757D;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.okururu-f3a-help:hover { background: #495057; }
+/* v1.72.0: 査定マニュアル（Google Docs 外部リンク） */
+.okururu-f3a-manual {
+  background: #2D8B57;
+  color: white !important;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: none !important;
+  display: inline-block;
+  line-height: 1.4;
+}
+.okururu-f3a-manual:hover { background: #1F6940; color: white !important; }
+.okururu-f3a-title { font-weight: bold; margin-right: 4px; }
+.okururu-f3a-chk {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: rgba(255,255,255,0.7) !important;
+  border: 1px solid #B4C7E7 !important;
+  border-radius: 3px;
+  cursor: pointer !important;
+  user-select: none;
+}
+/* リコア側CSSでチェックボックスが隠されないよう、明示的に表示 */
+.okururu-f3a-chk input[type="checkbox"] {
+  -webkit-appearance: checkbox !important;
+  -moz-appearance: checkbox !important;
+  appearance: checkbox !important;
+  width: 16px !important;
+  height: 16px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  position: static !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  vertical-align: middle;
+  accent-color: #4472C4;
+}
+.okururu-f3a-chk:has(input:checked) {
+  background: #D5E8F0 !important;
+  border-color: #4472C4 !important;
+}
+.okururu-f3a-preview {
+  background: #4472C4;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.okururu-f3a-preview:hover { background: #2F528F; }
+
+/* ドラッグハンドル（⠿）*/
+.okururu-f3a-drag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-size: 16px;
+  color: #2F528F;
+  cursor: grab;
+  user-select: none;
+  border-radius: 3px;
+  margin-right: 2px;
+}
+.okururu-f3a-drag:hover { background: rgba(68, 114, 196, 0.15); }
+.okururu-f3a-drag:active { cursor: grabbing; }
+
+/* 位置リセットボタン（⤺）*/
+.okururu-f3a-reset {
+  background: transparent;
+  border: 1px solid #B4C7E7;
+  color: #2F528F;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  font-size: 13px;
+  border-radius: 3px;
+  cursor: pointer;
+  line-height: 1;
+  margin-left: 4px;
+  font-family: inherit;
+}
+.okururu-f3a-reset:hover { background: #E7EFFB; }
+
+/* ---- モーダル ---- */
+.okururu-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100000;
+  font-family: 'Yu Gothic UI', 'Meiryo', 'Segoe UI', sans-serif;
+}
+.okururu-modal-card {
+  background: #fff;
+  border-radius: 6px;
+  max-width: 640px;
+  width: 92%;
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  border-top: 6px solid #4472C4;
+}
+.okururu-modal-warning { border-top-color: #E0A030; }
+.okururu-modal-danger  { border-top-color: #C00000; }
+.okururu-modal-info    { border-top-color: #4472C4; }
+
+.okururu-modal-title {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 14px 44px 8px 18px;
+  color: #2F528F;
+  position: relative;
+}
+/* v1.25.62→74: モーダル card 全体がドラッグハンドル（インタラクティブ要素以外） */
+.okururu-modal-drag-handle {
+  cursor: grab;
+  user-select: none;
+}
+.okururu-modal-drag-handle:active { cursor: grabbing; }
+.okururu-modal-card { cursor: grab; }
+.okururu-modal-card:active { cursor: grabbing; }
+/* インタラクティブ要素は通常カーソルに戻す */
+.okururu-modal-card button,
+.okururu-modal-card input,
+.okururu-modal-card select,
+.okururu-modal-card textarea,
+.okururu-modal-card a,
+.okururu-modal-card label { cursor: default; }
+.okururu-modal-card button,
+.okururu-modal-card a { cursor: pointer; }
+.okururu-modal-card input[type="text"],
+.okururu-modal-card input[type="number"],
+.okururu-modal-card input[type="email"],
+.okururu-modal-card input[type="search"],
+.okururu-modal-card input[type="tel"],
+.okururu-modal-card input[type="url"],
+.okururu-modal-card textarea { cursor: text; }
+.okururu-modal-card input[type="checkbox"],
+.okururu-modal-card input[type="radio"],
+.okururu-modal-card label,
+.okururu-modal-card select { cursor: pointer; }
+
+/* v1.25.71: F14 操作ガイドパネルのヘッダー＝ドラッグハンドル */
+.okururu-f14-drag-handle {
+  cursor: grab;
+  user-select: none;
+}
+.okururu-f14-drag-handle:active { cursor: grabbing; }
+.okururu-modal-warning .okururu-modal-title { color: #663300; }
+.okururu-modal-danger  .okururu-modal-title { color: #800; }
+
+.okururu-modal-body {
+  padding: 0 18px 12px;
+  font-size: 13px;
+  color: #222;
+  line-height: 1.6;
+}
+.okururu-modal-body ul { margin: 6px 0 6px 22px; padding: 0; }
+.okururu-modal-body li { margin: 2px 0; }
+.okururu-modal-body p { margin: 6px 0; }
+.okururu-modal-note {
+  font-size: 12px;
+  color: #666;
+  background: #F5F8FE;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+.okururu-modal-btnrow {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  padding: 10px 18px 14px;
+  border-top: 1px solid #eee;
+}
+
+.okururu-btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  font-family: inherit;
+}
+.okururu-btn-secondary {
+  background: #fff;
+  border-color: #B4C7E7;
+  color: #2F528F;
+}
+.okururu-btn-secondary:hover { background: #F5F8FE; }
+.okururu-btn-primary {
+  background: #4472C4;
+  border-color: #2F528F;
+  color: #fff;
+}
+.okururu-btn-primary:hover { background: #2F528F; }
+
+/* 「販売・買取単価を一括反映」ボタン（緑） */
+.okururu-btn-apply {
+  background: #28A745;
+  border-color: #1E7E34;
+  color: #fff;
+  font-size: 14px;
+  padding: 9px 22px;
+  box-shadow: 0 2px 6px rgba(40, 167, 69, 0.25);
+}
+.okururu-btn-apply:hover {
+  background: #218838;
+  border-color: #1C7430;
+}
+.okururu-btn-apply:disabled {
+  opacity: 0.7;
+  cursor: default;
+  background: #218838;
+}
+
+/* ---- ハイライト（黄/赤/青）---- */
+.okururu-highlight-warning {
+  outline: 2px solid #E0A030 !important;
+  background: #FFFBEA !important;
+}
+.okururu-highlight-danger {
+  outline: 2px solid #C00000 !important;
+  background: #FFF0F0 !important;
+}
+.okururu-highlight-info {
+  outline: 2px solid #4472C4 !important;
+  background: #F5F8FE !important;
+}
+
+/* ---- F4 ヘルプボタン ---- */
+.okururu-f4-help {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-left: 4px;
+  border-radius: 50%;
+  border: 1px solid #4472C4;
+  background: #fff;
+  color: #4472C4;
+  font-weight: bold;
+  font-size: 12px;
+  cursor: pointer;
+  vertical-align: middle;
+  font-family: inherit;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.12s ease, color 0.12s ease;
+  box-shadow: 0 1px 2px rgba(68, 114, 196, 0.18);
+}
+.okururu-f4-help:hover {
+  background: #4472C4;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(68, 114, 196, 0.35);
+  transform: translateY(-1px);
+}
+.okururu-f4-help:active,
+.okururu-f4-help.is-pressed {
+  background: #2D5BA8;
+  color: #fff;
+  transform: translateY(1px) scale(0.95);
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.25);
+}
+.okururu-f4-help:focus-visible {
+  outline: 2px solid #FFB400;
+  outline-offset: 2px;
+}
+
+/* v1.65.0: 新人モード「🧭 グレード判定」ボタン */
+.okururu-f4-beginner-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 6px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1.5px solid #2F528F;
+  background: linear-gradient(180deg, #FFFBEA 0%, #FFF4C2 100%);
+  color: #2F528F;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+  vertical-align: middle;
+  font-family: inherit;
+  box-shadow: 0 2px 4px rgba(47, 82, 143, 0.18);
+  animation: okururu-f4-beginner-pulse 2s ease-in-out infinite;
+  transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+.okururu-f4-beginner-btn:hover {
+  background: linear-gradient(180deg, #FFF4C2 0%, #FFE682 100%);
+  box-shadow: 0 3px 7px rgba(47, 82, 143, 0.32);
+  transform: translateY(-1px);
+}
+.okururu-f4-beginner-btn:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.18);
+}
+.okururu-f4-beginner-btn:focus-visible {
+  outline: 2px solid #FFB400;
+  outline-offset: 2px;
+}
+@keyframes okururu-f4-beginner-pulse {
+  0%, 100% { box-shadow: 0 2px 4px rgba(47, 82, 143, 0.18); }
+  50%      { box-shadow: 0 2px 10px rgba(255, 180, 0, 0.55); }
+}
+
+.okururu-f4-q {
+  border: 1px solid #B4C7E7;
+  border-radius: 4px;
+  padding: 8px 10px;
+  margin: 6px 0;
+  background: #F5F8FE;
+}
+.okururu-f4-q label { display: inline-flex; gap: 4px; margin-right: 14px; }
+.okururu-f4-result {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-left: 4px solid #4472C4;
+  background: #E7EFFB;
+  white-space: pre-wrap;
+  font-weight: 600;
+  color: #143C8C;
+  border-radius: 3px;
+}
+.okururu-f4-result.okururu-f4-ambiguous {
+  border-left-color: #E0A030;
+  background: #FFF4D6;
+  color: #663300;
+}
+
+/* ---- F4 v2 ウィザード追加スタイル ---- */
+/* ラジオボタンの選択感（クリック反応＋選択ハイライト） */
+.okururu-f4-q label {
+  display: block !important;
+  margin: 6px 0 !important;
+  padding: 8px 12px;
+  border: 1.5px solid #B4C7E7;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease, transform 0.05s ease, box-shadow 0.12s ease;
+  user-select: none;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.okururu-f4-q label:hover {
+  background: #F0F4FB;
+  border-color: #4472C4;
+  box-shadow: 0 1px 3px rgba(68, 114, 196, 0.18);
+}
+.okururu-f4-q label:active {
+  transform: translateY(1px);
+  background: #D5E1F4;
+}
+.okururu-f4-q label:has(input:checked) {
+  background: #E7EFFB;
+  border-color: #2F528F;
+  border-width: 2px;
+  padding: 7.5px 11.5px;
+  box-shadow: 0 0 0 2px rgba(68, 114, 196, 0.18);
+  font-weight: 700;
+  color: #143C8C;
+}
+.okururu-f4-q label:has(input:checked)::before {
+  content: '✓ ';
+  color: #2D8B57;
+  font-weight: 900;
+}
+.okururu-f4-q input[type="radio"] {
+  margin-right: 8px;
+  accent-color: #4472C4;
+  transform: scale(1.1);
+  vertical-align: middle;
+}
+
+/* ---- F4 タグchip（ウィザード内で選べる）---- */
+.okururu-f4-tagsection {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px dashed #B4C7E7;
+  border-radius: 6px;
+  background: #FBFCFE;
+}
+.okururu-f4-tagsection > p {
+  margin: 0 0 6px;
+  font-size: 12px;
+  color: #2F528F;
+  font-weight: 600;
+}
+.okururu-f4-tagchips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.okururu-f4-tagchip {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border: 1.5px solid #B4C7E7;
+  border-radius: 14px;
+  background: #fff;
+  color: #2F528F;
+  font-size: 11.5px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.12s ease;
+  white-space: nowrap;
+}
+.okururu-f4-tagchip:hover {
+  background: #E7EFFB;
+  border-color: #4472C4;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(68, 114, 196, 0.2);
+}
+.okururu-f4-tagchip:active {
+  transform: translateY(0);
+}
+.okururu-f4-tagchip.is-selected {
+  background: #4472C4;
+  border-color: #2F528F;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.okururu-f4-tagchip.is-selected::before {
+  content: '✓ ';
+  font-weight: 900;
+}
+/* v1.14.0：タッチPC対応 chip suffix（→ 中古B推奨 等） */
+.okururu-f4-tagchip-suffix {
+  margin-left: 6px;
+  padding-left: 6px;
+  border-left: 1px solid currentColor;
+  font-size: 10px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+.okururu-f4-tagchip.is-selected .okururu-f4-tagchip-suffix { opacity: 1; }
+
+/* 強制9タグ（期限2ヶ月未満等）：未選択時も赤枠で「⛔ 自動グレード変更タグ」と認識可能に */
+.okururu-f4-tagchip.is-force-tag {
+  border-color: #C00000;
+  color: #800;
+  background: #FFF5F5;
+}
+.okururu-f4-tagchip.is-force-tag:hover {
+  background: #FDE2E2;
+  border-color: #800;
+}
+/* 強制9タグの選択時：赤背景で警告強調 */
+.okururu-f4-tagchip.is-force-tag.is-selected {
+  background: #C00000;
+  border-color: #800;
+  color: #fff;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+/* 推奨タグ（残量・期限2-3ヶ月など）：未選択時は黄色枠で「💡 推奨に影響するタグ」と認識可能に */
+.okururu-f4-tagchip.is-suggest-tag {
+  border-color: #E0A030;
+  color: #663300;
+  background: #FFFCF0;
+}
+.okururu-f4-tagchip.is-suggest-tag:hover {
+  background: #FFF4D6;
+  border-color: #C58817;
+}
+.okururu-f4-tagsection-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+  padding: 8px 10px;
+  background: #F8FAFD;
+  border: 1px dashed #B4C7E7;
+  border-radius: 4px;
+  font-size: 11px;
+  color: #555;
+}
+.okururu-f4-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.okururu-f4-legend-icon {
+  display: inline-block;
+  min-width: 20px;
+  text-align: center;
+  font-size: 13px;
+}
+.okururu-f4-legend-icon.okururu-f4-legend-force { color: #C00000; }
+.okururu-f4-legend-icon.okururu-f4-legend-suggest { color: #E0A030; }
+.okururu-f4-tagsection-note {
+  margin-top: 8px;
+  font-size: 11px;
+  color: #666;
+}
+
+.okururu-f4-wizard { font-size: 13px; }
+
+/* v1.15.0: F4 ウィザード進捗ステッパー（5ステップ） */
+.okururu-f4-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 8px 8px;
+  background: linear-gradient(135deg, #F0F4FB 0%, #E7EFFB 100%);
+  border-radius: 6px;
+  margin-bottom: 6px;
+  font-size: 11px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+.okururu-f4-stepper-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: #fff;
+  border: 1.5px solid #B4C7E7;
+  border-radius: 16px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.okururu-f4-stepper-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: #B4C7E7;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+}
+.okururu-f4-stepper-label {
+  color: #555;
+  font-weight: 600;
+}
+.okururu-f4-stepper-label small {
+  font-size: 9px;
+  color: #888;
+  font-weight: normal;
+  margin-left: 2px;
+}
+.okururu-f4-stepper-arrow {
+  color: #B4C7E7;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+/* current（現在進行中）：青ハイライト */
+.okururu-f4-stepper-item.is-current {
+  background: #4472C4;
+  border-color: #2F528F;
+  box-shadow: 0 2px 6px rgba(68, 114, 196, 0.3);
+}
+.okururu-f4-stepper-item.is-current .okururu-f4-stepper-num {
+  background: #fff;
+  color: #2F528F;
+}
+.okururu-f4-stepper-item.is-current .okururu-f4-stepper-label,
+.okururu-f4-stepper-item.is-current .okururu-f4-stepper-label small {
+  color: #fff;
+}
+/* done（完了）：緑チェック */
+.okururu-f4-stepper-item.is-done {
+  background: #E5F4EB;
+  border-color: #2D8B57;
+}
+.okururu-f4-stepper-item.is-done .okururu-f4-stepper-num {
+  background: #2D8B57;
+}
+.okururu-f4-stepper-item.is-done .okururu-f4-stepper-num::before {
+  content: '✓';
+}
+.okururu-f4-stepper-item.is-done .okururu-f4-stepper-num {
+  font-size: 0;
+}
+.okururu-f4-stepper-item.is-done .okururu-f4-stepper-num::before {
+  font-size: 12px;
+}
+.okururu-f4-stepper-item.is-done .okururu-f4-stepper-label {
+  color: #1A5C3A;
+}
+/* auto-done（タグで自動スキップ）：黄色 */
+.okururu-f4-stepper-item.is-auto-done {
+  background: #FFF4D6;
+  border-color: #E0A030;
+}
+.okururu-f4-stepper-item.is-auto-done .okururu-f4-stepper-num {
+  background: #E0A030;
+  font-size: 0;
+}
+.okururu-f4-stepper-item.is-auto-done .okururu-f4-stepper-num::before {
+  content: 'A';
+  font-size: 10px;
+}
+.okururu-f4-stepper-item.is-auto-done .okururu-f4-stepper-label {
+  color: #663300;
+}
+
+/* v1.11.0: 上部 sticky ヘッダー（メタ情報＋結果カードを常時表示） */
+.okururu-f4-sticky-header {
+  position: sticky;
+  top: -1px;
+  background: #fff;
+  z-index: 10;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+  box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid #E5EBF4;
+}
+.okururu-f4-sticky-header .okururu-f4-result {
+  margin-top: 4px;
+}
+.okururu-f4-sticky-header .okururu-f4-result:empty,
+.okururu-f4-sticky-header .okururu-f4-result-box:empty {
+  display: none;
+}
+.okururu-f4-meta {
+  background: #F0F4FB;
+  border: 1px solid #B4C7E7;
+  border-radius: 4px;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+/* v1.11.0: unknown 時の手動カテゴリ選択UI */
+.okururu-f4-manual-cat {
+  margin-top: 8px;
+  padding: 6px 8px;
+  background: #FFF8E1;
+  border: 1px dashed #E0A030;
+  border-radius: 4px;
+  font-size: 12px;
+}
+.okururu-f4-manual-cat-select {
+  font-size: 13px;
+  padding: 4px 8px;
+  border: 1.5px solid #B4C7E7;
+  border-radius: 4px;
+  background: #fff;
+  font-family: inherit;
+  cursor: pointer;
+  margin-left: 6px;
+}
+.okururu-f4-manual-cat-select:focus {
+  outline: none;
+  border-color: #2F528F;
+  box-shadow: 0 0 0 2px rgba(68, 114, 196, 0.18);
+}
+
+/* v1.11.0: Q1/Q2 選択肢の判断基準サブテキスト */
+.okururu-f4-q-hint {
+  display: block;
+  font-size: 11px;
+  color: #666;
+  margin-left: 22px;
+  margin-top: -2px;
+  margin-bottom: 4px;
+  font-weight: normal;
+  line-height: 1.4;
+}
+/* v1.14.0: F13 用語ポップオーバー（タッチPC対応） */
+.okururu-f13-term-help {
+  cursor: pointer;
+  border-bottom: 1px dotted #4472C4;
+  color: #2F528F;
+  font-weight: 600;
+  position: relative;
+  padding: 0 1px;
+}
+.okururu-f13-term-help:hover { background: rgba(68,114,196,0.08); }
+.okururu-f13-term-popover {
+  background: #fff;
+  border: 1.5px solid #4472C4;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  padding: 12px 14px;
+  max-width: 360px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.okururu-f13-term-popover-title {
+  font-weight: 700;
+  color: #143C8C;
+  margin-bottom: 6px;
+  padding-right: 24px;
+}
+.okururu-f13-term-popover-body {
+  color: #333;
+}
+.okururu-f13-term-popover-close {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #888;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  line-height: 1;
+}
+.okururu-f13-term-popover-close:hover {
+  background: #F0F4FB;
+  color: #2F528F;
+}
+
+/* v1.12.0: 説明モード時のフル解説ブロック */
+.okururu-f4-result-fullexpl {
+  margin-top: 8px;
+  padding: 8px 10px;
+  background: #FFF8E1;
+  border: 1px solid #E0A030;
+  border-left: 4px solid #C58817;
+  border-radius: 3px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #663300;
+  font-weight: normal;
+}
+.okururu-f4-result-fullexpl::first-line {
+  font-weight: 700;
+}
+
+/* v1.11.0: 適用ボタンへの誘導コピー */
+.okururu-f4-apply-hint {
+  margin-top: 16px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, #E7EFFB 0%, #F5F8FE 100%);
+  border: 1px solid #B4C7E7;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #143C8C;
+  text-align: center;
+  line-height: 1.6;
+}
+.okururu-f4-apply-hint b { color: #2F528F; font-size: 13px; }
+.okururu-f4-meta > div { margin: 2px 0; }
+.okururu-f4-warn { color: #C0392B; margin-left: 6px; font-weight: 600; }
+
+.okururu-f4-q label { display: block; margin: 4px 0; }
+.okururu-f4-q [data-cat-group] { margin: 4px 0; }
+
+.okururu-f4-pending {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-left: 4px solid #999;
+  background: #f5f5f5;
+  color: #555;
+  font-size: 12px;
+  border-radius: 3px;
+}
+.okururu-f4-result-box {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-left: 5px solid #4472C4;
+  background: #E7EFFB;
+  border-radius: 4px;
+}
+.okururu-f4-result-grade { font-size: 14px; margin-bottom: 4px; }
+.okururu-f4-result-reason { color: #333; font-size: 12px; margin-bottom: 4px; }
+.okururu-f4-result-customer { color: #555; font-size: 11px; font-style: italic; }
+.okururu-f4-result-good  { border-left-color: #2D8B57; background: #E5F4EB; }
+.okururu-f4-result-good .okururu-f4-result-grade { color: #1A5C3A; }
+.okururu-f4-result-ok    { border-left-color: #5BA77F; background: #EFF8F2; }
+.okururu-f4-result-mid   { border-left-color: #E0A030; background: #FFF4D6; }
+.okururu-f4-result-mid .okururu-f4-result-grade { color: #663300; }
+.okururu-f4-result-warn  { border-left-color: #D87B00; background: #FFE9C8; }
+.okururu-f4-result-warn .okururu-f4-result-grade { color: #6B3000; }
+.okururu-f4-result-bad   { border-left-color: #C00000; background: #FDE2E2; }
+.okururu-f4-result-bad .okururu-f4-result-grade { color: #800; }
+
+/* ---- F4 タグ自動連動トースト ---- */
+.okururu-f4-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.4;
+  border: 1px solid #B4C7E7;
+  background: #F0F4FB;
+  color: #143C8C;
+  border-left-width: 5px;
+}
+.okururu-f4-toast-text {
+  flex: 1;
+  min-width: 0;
+}
+.okururu-f4-toast-title {
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 3px;
+  letter-spacing: 0.3px;
+}
+.okururu-f4-toast-message {
+  font-size: 12px;
+  line-height: 1.5;
+}
+.okururu-f4-toast-force {
+  border-color: #C00000;
+  border-left-color: #800;
+  background: #FDE2E2;
+  color: #800;
+}
+.okururu-f4-toast-suggest {
+  border-color: #E0A030;
+  border-left-color: #C58817;
+  background: #FFF4D6;
+  color: #663300;
+}
+.okururu-f4-toast-btn {
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  padding: 2px 8px;
+  font-size: 11px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.okururu-f4-toast-btn:hover { background: rgba(0, 0, 0, 0.06); }
+.okururu-f4-toast-close {
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 4px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ---- F5 期限ヒント ---- */
+.okururu-f5-hint {
+  margin-top: 4px;
+  margin-left: 12px; /* v1.25.75: タグ名との間にスペース */
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+  display: inline-block;
+}
+.okururu-f5-hint-warning { background: #FFF4D6; color: #663300; border: 1px solid #E0A030; }
+.okururu-f5-hint-danger  { background: #FDE2E2; color: #800;    border: 1px solid #C00000; }
+
+/* ---- F2 単価未入力 行内バッジ（v1.64.6） ---- */
+.okururu-f2-badge {
+  display: inline-block;
+  margin: 0 6px 4px 0;
+  padding: 2px 8px;
+  background: #FFF4D6;
+  color: #663300;
+  border: 1px solid #E0A030;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: help;
+  transition: background 0.12s, color 0.12s;
+}
+.okururu-f2-badge:hover {
+  background: #E0A030;
+  color: #fff;
+}
+
+/* ---- F7 ITコード行内バッジ ---- */
+.okururu-f7-badge {
+  display: inline-block;
+  margin: 0 6px 4px 0;
+  padding: 2px 8px;
+  background: #E7EFFB;
+  color: #143C8C;
+  border: 1px solid #4472C4;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: help;
+  transition: background 0.12s, color 0.12s;
+}
+.okururu-f7-badge:hover {
+  background: #4472C4;
+  color: #fff;
+}
+
+/* ---- F76 ケースラベル貼付バッジ（v1.71.19 でクロさん FB「枠で囲って」対応） ---- */
+.okururu-f76-badge {
+  display: inline-block;
+  margin: 0 6px 4px 0;
+  padding: 2px 8px;
+  background: #E8F5E9;
+  color: #1B5E20;
+  border: 1px solid #2E7D32;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: help;
+  transition: background 0.12s, color 0.12s;
+}
+.okururu-f76-badge:hover {
+  background: #2E7D32;
+  color: #fff;
+}
+
+/* ---- F9 検索候補ヒント ---- */
+.okururu-f9-hint {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  z-index: 99997;
+  background: #FFF4D6;
+  color: #663300;
+  border: 1px solid #E0A030;
+  border-radius: 4px;
+  padding: 10px 30px 10px 14px;
+  max-width: 360px;
+  font-size: 13px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.okururu-f9-close {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: inherit;
+}
+
+/* ---- F11 メルカリ検索リンク ---- */
+.okururu-mercari-link {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 8px;
+  background: #FF4444;
+  color: #fff !important;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: none !important;
+  vertical-align: middle;
+  line-height: 1.4;
+  white-space: nowrap;
+  transition: background 0.15s;
+  /* v1.26.7: 行が多い査定一覧でのスクロールジャンク対策。
+     paint と layout を要素内に閉じ込めて scroll repaint コストを削減。 */
+  contain: layout paint style;
+}
+.okururu-mercari-link:hover {
+  background: #CC0000;
+  text-decoration: none !important;
+  color: #fff !important;
+}
+
+/* ---- F46 イオシス検索リンク（スマホ・タブレットカテゴリ限定） ---- */
+.okururu-iosys-link {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 8px;
+  background: #0066CC;
+  color: #fff !important;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: none !important;
+  vertical-align: middle;
+  line-height: 1.4;
+  white-space: nowrap;
+  transition: background 0.15s;
+  contain: layout paint style;
+}
+.okururu-iosys-link:hover {
+  background: #004C99;
+  text-decoration: none !important;
+  color: #fff !important;
+}
+
+/* ---- F10 数量テーブル ---- */
+.okururu-f10-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0;
+  font-size: 12px;
+}
+.okururu-f10-table th, .okururu-f10-table td {
+  border: 1px solid #B4C7E7;
+  padding: 4px 8px;
+}
+.okururu-f10-table thead th { background: #4472C4; color: #fff; }
+
+/* ============================================================
+   F12：貴金属計算ツール
+   ============================================================ */
+.okururu-f12-btn {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 10px;
+  background: linear-gradient(180deg, #FFD700 0%, #DAA520 100%);
+  color: #4A2A00;
+  border: 1px solid #B8860B;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  vertical-align: middle;
+  line-height: 1.6;
+  white-space: nowrap;
+  font-family: inherit;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+  /* v1.26.7: 行ごと装飾の paint 局所化（スクロールジャンク対策） */
+  contain: layout paint style;
+}
+.okururu-f12-btn:hover {
+  background: linear-gradient(180deg, #FFCF40 0%, #C29105 100%);
+}
+.okururu-f12-product {
+  font-size: 13px;
+  color: #444;
+  background: #F5F5F5;
+  padding: 6px 10px;
+  margin-bottom: 10px;
+  border-left: 3px solid #DAA520;
+  border-radius: 3px;
+}
+.okururu-f12-calc-grid {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 8px 12px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.okururu-f12-calc-grid label {
+  font-weight: 600;
+  font-size: 12px;
+  color: #2F528F;
+}
+.okururu-f12-calc-grid input,
+.okururu-f12-calc-grid select {
+  padding: 4px 8px;
+  border: 1px solid #B4C7E7;
+  border-radius: 3px;
+  font-size: 13px;
+  font-family: inherit;
+}
+.okururu-f12-rate-info {
+  font-size: 11px;
+  color: #555;
+  margin: 6px 0;
+  padding: 4px 8px;
+  background: #F5F8FE;
+  border-radius: 3px;
+}
+.okururu-f12-rate-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.okururu-f12-rate-row input.okururu-f12-rate {
+  flex: 1;
+  padding: 4px 8px;
+  border: 1px solid #B4C7E7;
+  border-radius: 3px;
+  font-size: 13px;
+  font-family: inherit;
+}
+.okururu-f12-rate-fetch {
+  padding: 4px 10px;
+  background: #fff;
+  border: 1px solid #4472C4;
+  color: #2F528F;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+}
+.okururu-f12-rate-fetch:hover {
+  background: #E7EFFB;
+}
+.okururu-f12-rate-fetch:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.okururu-f12-pd-warn {
+  font-size: 12px;
+  color: #663300;
+  padding: 6px 10px;
+  background: #FFF4D6;
+  border: 1px solid #E0A030;
+  border-radius: 3px;
+  margin: 6px 0;
+}
+.okururu-f12-result {
+  margin: 12px 0;
+  padding: 10px 14px;
+  background: #E7EFFB;
+  border: 1px solid #4472C4;
+  border-radius: 4px;
+}
+.okururu-f12-result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 3px 0;
+  font-size: 13px;
+}
+.okururu-f12-result-row > span:first-child {
+  color: #555;
+}
+.okururu-f12-result-row > span:last-child {
+  font-weight: 700;
+  color: #143C8C;
+}
+.okururu-f12-buy-row {
+  border-top: 1px solid #B4C7E7;
+  padding-top: 6px;
+  margin-top: 4px;
+  font-size: 15px;
+}
+.okururu-f12-buy-row > span:last-child {
+  color: #C00000 !important;
+  font-size: 18px !important;
+}
+.okururu-f12-actionrow {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+/* ============================================================
+   F13：ブランド品ライン査定基準
+   ============================================================ */
+.okururu-f13-btn {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 10px;
+  background: linear-gradient(180deg, #8E44AD 0%, #6C3483 100%);
+  color: #fff;
+  border: 1px solid #5B2C6F;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  vertical-align: middle;
+  line-height: 1.6;
+  white-space: nowrap;
+  font-family: inherit;
+  /* v1.26.7: 行ごと装飾の paint 局所化（スクロールジャンク対策） */
+  contain: layout paint style;
+}
+.okururu-f13-btn:hover {
+  background: linear-gradient(180deg, #9B59B6 0%, #7D3C98 100%);
+}
+.okururu-f13-product {
+  font-size: 13px;
+  color: #444;
+  background: #F5F5F5;
+  padding: 6px 10px;
+  margin-bottom: 10px;
+  border-left: 3px solid #8E44AD;
+  border-radius: 3px;
+}
+.okururu-f13-detected {
+  font-size: 13px;
+  margin-bottom: 10px;
+  padding: 6px 10px;
+  background: #F8F4FB;
+  border: 1px solid #D7BDE2;
+  border-radius: 3px;
+}
+.okururu-f13-step {
+  margin: 8px 0;
+  padding: 8px 10px;
+  border: 1px solid #B4C7E7;
+  border-radius: 4px;
+  background: #F5F8FE;
+}
+.okururu-f13-step-title {
+  font-weight: 700;
+  color: #2F528F;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+/* F13 グレード判定基準（常時表示リスト） */
+.okururu-f13-grade-criteria {
+  margin-top: 8px;
+  padding: 8px 10px;
+  background: #FFF9E6;
+  border: 1px solid #E0A030;
+  border-radius: 4px;
+}
+.okururu-f13-grade-criteria-title {
+  font-weight: 700;
+  color: #663300;
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+.okururu-f13-grade-criteria-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 11px;
+  color: #555;
+  line-height: 1.5;
+}
+.okururu-f13-grade-criteria-list li {
+  margin: 2px 0;
+}
+.okururu-f13-grade-criteria-list b {
+  color: #2F528F;
+  font-weight: 700;
+}
+/* グレード基準内の用語ホバー解説（新人サポート） */
+.okururu-f13-term-help {
+  border-bottom: 1px dotted #4472C4;
+  cursor: help;
+  color: #2F528F;
+  font-weight: 600;
+  padding: 0 1px;
+  transition: background 0.12s ease, border-bottom-style 0.12s ease;
+}
+.okururu-f13-term-help:hover {
+  background: #FFF8DD;
+  border-bottom: 1px solid #E1B007;
+  border-radius: 2px;
+}
+.okururu-f13-radios label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 8px;
+  margin-bottom: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #B4C7E7;
+  border-radius: 14px;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+  user-select: none;
+}
+.okururu-f13-radios label:hover {
+  background: #E7EFFB;
+  border-color: #4472C4;
+}
+.okururu-f13-radios label:has(input:checked) {
+  background: #4472C4;
+  color: #fff;
+  border-color: #1F3864;
+  font-weight: 700;
+  box-shadow: 0 1px 4px rgba(31, 56, 100, 0.3);
+}
+.okururu-f13-radios label:has(input:checked) input[type="radio"] {
+  accent-color: #fff;
+}
+.okururu-f13-radios input[type="radio"] {
+  accent-color: #4472C4;
+  margin: 0;
+}
+.okururu-f13-result {
+  margin: 12px 0;
+  padding: 10px 14px;
+  background: #FBF6FE;
+  border: 1px solid #8E44AD;
+  border-radius: 4px;
+}
+.okururu-f13-result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  font-size: 13px;
+}
+.okururu-f13-result-row > span:first-child {
+  color: #555;
+}
+.okururu-f13-result-row > span:last-child {
+  font-weight: 700;
+  color: #5B2C6F;
+}
+.okururu-f13-action-desc {
+  margin-top: 6px;
+  padding: 6px 10px;
+  background: #fff;
+  border-left: 3px solid #8E44AD;
+  font-size: 12px;
+  color: #444;
+  border-radius: 3px;
+}
+.okururu-f13-actionrow {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+/* ---- F13 ランクバッジ ---- */
+.okururu-f13-rank-badge {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-left: 4px;
+  vertical-align: middle;
+  border: 1px solid;
+}
+.okururu-f13-rank-high     { background: #FFF4D6; color: #663300; border-color: #DAA520; }
+.okururu-f13-rank-subhigh  { background: #ECECEC; color: #444;    border-color: #999; }
+.okururu-f13-rank-semi     { background: #E7EFFB; color: #143C8C; border-color: #4472C4; }
+.okururu-f13-rank-light    { background: #E8F8E8; color: #1B5E20; border-color: #4CAF50; }
+.okururu-f13-rank-excluded { background: #FDE2E2; color: #800;    border-color: #C00000; }
+.okururu-f13-rank-unknown  { background: #F5F5F5; color: #666;    border-color: #BBB; }
+
+/* ---- F13 処理区分バッジ ---- */
+.okururu-f13-tier-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  border: 1px solid transparent;
+}
+.okururu-f13-tier-doguichi { background: #888; }
+.okururu-f13-tier-jisha    { background: #4472C4; }
+.okururu-f13-tier-line     { background: #E0A030; }
+.okururu-f13-tier-shingan  { background: #C00000; }
+
+/* ============================================================
+   F17：一般カテゴリ簡易計算ツール
+   ============================================================ */
+.okururu-f17-btn {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 10px;
+  background: linear-gradient(180deg, #28A745 0%, #1E7E34 100%);
+  color: #fff;
+  border: 1px solid #1C7430;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  vertical-align: middle;
+  line-height: 1.6;
+  white-space: nowrap;
+  font-family: inherit;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+  box-shadow: 0 1px 2px rgba(40,167,69,0.25);
+  /* v1.26.7: 行ごと装飾の paint 局所化（スクロールジャンク対策） */
+  contain: layout paint style;
+}
+.okururu-f17-btn:hover {
+  background: linear-gradient(180deg, #34C759 0%, #218838 100%);
+}
+
+/* メルカリリンクと F17 ボタンが並ぶときの間隔調整 */
+.okururu-mercari-link + .okururu-f17-btn {
+  margin-left: 4px;
+}
+
+.okururu-f17-product {
+  font-size: 13px;
+  color: #444;
+  background: #F5F5F5;
+  padding: 6px 10px;
+  margin-bottom: 10px;
+  border-left: 3px solid #28A745;
+  border-radius: 3px;
+}
+.okururu-f17-modal-grid {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 8px 12px;
+  align-items: center;
+  margin-bottom: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.okururu-f17-modal-grid > label {
+  font-weight: 600;
+  font-size: 12px;
+  color: #2F528F;
+}
+.okururu-f17-modal-grid input[type="number"],
+.okururu-f17-modal-grid select {
+  padding: 4px 8px;
+  border: 1px solid #B4C7E7;
+  border-radius: 3px;
+  font-size: 13px;
+  font-family: inherit;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.okururu-f17-help-inline {
+  font-size: 10px;
+  color: #888;
+  font-weight: normal;
+}
+.okururu-f17-tenup-row {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
+  font-weight: normal !important;
+  color: #333 !important;
+}
+.okururu-f17-tenup-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #28A745;
+}
+
+.okururu-f17-bands {
+  margin: 10px 0;
+  padding: 8px 12px;
+  background: #FFF9E6;
+  border: 1px solid #E0A030;
+  border-radius: 4px;
+  font-size: 12px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.okururu-f17-bands ul li {
+  white-space: normal;
+  word-break: break-word;
+}
+.okururu-f17-bands-note {
+  white-space: normal;
+  word-break: break-word;
+}
+.okururu-f17-bands-title {
+  font-weight: 700;
+  color: #663300;
+  margin-bottom: 4px;
+}
+.okururu-f17-bands ul {
+  margin: 4px 0 4px 18px;
+  padding: 0;
+  font-size: 11px;
+  color: #555;
+  line-height: 1.5;
+}
+.okururu-f17-bands ul li {
+  margin: 2px 0;
+}
+.okururu-f17-bands ul b {
+  color: #663300;
+}
+.okururu-f17-bands-note {
+  margin-top: 4px;
+  font-size: 11px;
+  color: #663300;
+  border-top: 1px dashed #E0A030;
+  padding-top: 4px;
+}
+
+.okururu-f17-result {
+  margin: 12px 0;
+  padding: 10px 14px;
+  background: #E8F7EE;
+  border: 1px solid #28A745;
+  border-radius: 4px;
+}
+.okururu-f17-result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 3px 0;
+  font-size: 13px;
+}
+.okururu-f17-result-row > span:first-child {
+  color: #555;
+}
+.okururu-f17-result-row > span:last-child {
+  font-weight: 700;
+  color: #1E7E34;
+}
+.okururu-f17-buy-row {
+  border-top: 1px solid #B7E1C5;
+  padding-top: 6px;
+  margin-top: 4px;
+  font-size: 15px;
+}
+.okururu-f17-buy-row > span:last-child {
+  color: #C00000 !important;
+  font-size: 18px !important;
+}
+.okururu-f17-result-rule {
+  margin-top: 6px;
+  padding: 6px 8px;
+  background: #fff;
+  border-left: 3px solid #28A745;
+  border-radius: 0 3px 3px 0;
+  font-size: 11px;
+  color: #444;
+  line-height: 1.5;
+}
+.okururu-f17-actionrow {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+/* ============================================================
+   F14：オペレーションガイドパネル（初日モードON時のみ表示）
+   ============================================================ */
+.okururu-f14-toggle {
+  position: fixed;
+  /* v1.65.3: 左配置 → v1.66.1 (2026-05-17): クロさん「右のほうが操作しやすい」FB で右配置に戻す */
+  right: 0;
+  /* v1.69.0 (2026-05-18): クロさん FB「5mmくらいの幅で、ガイドモード／◯／◯／操作ガイドを
+     上に積み上げて」対応。右端 5mm 幅の縦帯に下から「F71 ガイドモード（縦バー）／ReCORE 丸×2／
+     F14 toggle」と積み上がるよう、F14 toggle を ReCORE 丸 2 つの真上 (bottom:240px) に上げる。
+     旧 v1.69.0 初回案: bottom:80px → ReCORE 丸 と被る／F71 とも近い
+     旧 v1.68.8: bottom:50% 縦中央配置（取り残し）
+     旧々 v1.65.x: 左端配置 → 右端へ戻した経緯あり */
+  top: auto;
+  bottom: 240px;
+  transform: none;
+  z-index: 99995;
+  background: linear-gradient(180deg, #4472C4 0%, #2F528F 100%);
+  color: #fff;
+  border: 1px solid #1F3864;
+  border-right: none;
+  border-radius: 6px 0 0 6px;
+  padding: 10px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Yu Gothic UI', 'Meiryo', 'Segoe UI', sans-serif;
+  writing-mode: vertical-rl;
+  letter-spacing: 2px;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+  transition: background 0.15s;
+}
+.okururu-f14-toggle:hover {
+  background: linear-gradient(180deg, #5A8AD8 0%, #3D649B 100%);
+}
+/* パネル表示中はトグルボタンを隠す */
+body:has(#okururu-f14-panel) #okururu-f14-toggle {
+  display: none;
+}
+
+.okururu-f14-panel {
+  position: fixed;
+  /* v1.65.3: 「右に見切れる」FB で left に変更
+     v1.66.1 (2026-05-17): クロさん再 FB「操作ガイド右のほうが操作しやすい」で右配置に戻す。
+     v1.66.4 (2026-05-18): クロさん FB「開いたときに右側をみぎはしにつけて」。
+       展開時に右端から離れて見える問題（drag 残骸 or 何らかのオフセット）を防ぐため
+       !important で右端ピッタリを強制。setupPanelDrag は inline style で left/top を
+       設定するので、ドラッグ時は inline style 優先で動作（!important 同士は inline 勝ち）。
+     v1.66.4 続 (2026-05-18): クロさん FB「まだ右端に見切れてます」。
+       width 340px が画面幅より大きい環境（モバイル・縦長ブラウザ）で見切れる問題を
+       max-width: calc(100vw - 16px) で解決。画面に応じて自動縮小、最小限の余白 16px 確保。 */
+  /* v1.68.8 (2026-05-18): クロさん FB「もう少し下に配置してほしい。丸いアイコンのすぐ上辺り」
+     ReCORE 右下の丸アイコン群の真上に置くため top:50% → bottom:80px のボトム固定に変更。
+     height も 80vh → 70vh に縮小して画面上部に被らない＆下の丸アイコンと重ならないようにする。 */
+  right: 0 !important;
+  top: auto;
+  bottom: 80px;
+  transform: none;
+  width: 340px;
+  max-width: calc(100vw - 16px);
+  height: 70vh;
+  max-height: calc(100vh - 120px);
+  z-index: 99996;
+  background: #fff;
+  border: 1px solid #B4C7E7;
+  border-right: none;
+  border-radius: 6px 0 0 6px;
+  box-shadow: -4px 4px 16px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  font-family: 'Yu Gothic UI', 'Meiryo', 'Segoe UI', sans-serif;
+  font-size: 13px;
+  color: #222;
+  /* v1.65.1: クロさん指示「少し透過したほうが良い」。hover で完全不透明に戻す
+     v1.65.2: もう少し透過（0.92 → 0.85）。クロさん FB「透明でない」 */
+  opacity: 0.85;
+  transition: opacity 0.18s ease;
+}
+.okururu-f14-panel:hover {
+  opacity: 1;
+}
+/* v1.65.1: 最小化状態（クロさん指示「小さくできず邪魔」）。
+   ヘッダーだけ縦帯（幅 44px）として残し、ヘッダーをクリックで展開復帰。
+   v1.65.2: クロさん FB「左にパネルが浮いている、透明でない」対応。
+     - drag で動かした位置が残っていても、最小化時は必ず右端へ強制移動
+     - opacity 0.92 → 0.85 にもう少し透過 */
+.okururu-f14-panel.okururu-f14-panel-minimized {
+  width: 44px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: 220px !important;
+  /* v1.66.1: 右配置（クロさん指示「右のほうが操作しやすい」）
+     v1.66.3 (2026-05-18): クロさん FB「右寄りすぎ」。画面端ギリギリだとスクロールバーや
+       ReCORE 本体の右端と重なるので 10px 内側に配置。border-radius も四隅丸にして
+       「画面端と同化」状態から「浮いている縦帯」状態へ変更
+     v1.69.0 (2026-05-19): クロさん FB「重ねないように対応して。ガイドオンの下に
+       白い帯があるので、消して」対応。
+       旧: top:50%; transform:translateY(-50%) → 画面縦中央配置、ReCORE 右下の
+       丸アイコンと重なる、かつ panel の余分な白い帯が visible になる。
+       中間: top:auto; bottom:240px → 下寄り
+       v1.69.0 (2026-05-19) 最終: クロさん FB「丸（=panel-minimized）を上にあげて」対応。
+       画面右上 (top:80px) に配置、ReCORE のヘッダ直下から下方へ縦バー展開。
+       max-height:220px で内部子要素分のみに高さ制限 → 白い帯解消。 */
+  left: auto !important;
+  right: 10px !important;
+  top: auto !important;
+  bottom: 240px !important;
+  transform: none !important;
+  opacity: 0.85 !important;
+  border-radius: 6px !important;
+}
+.okururu-f14-panel.okururu-f14-panel-minimized > *:not(.okururu-f14-header) {
+  display: none !important;
+}
+.okururu-f14-panel.okururu-f14-panel-minimized .okururu-f14-header {
+  /* v1.66.3: 最小化時はパネル本体が四隅丸なのでヘッダも四隅丸に */
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 10px 4px;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  text-align: center;
+}
+.okururu-f14-panel.okururu-f14-panel-minimized .okururu-f14-header-title {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 11px;
+  white-space: nowrap;
+  letter-spacing: 1px;
+}
+.okururu-f14-panel.okururu-f14-panel-minimized .okururu-f14-min,
+.okururu-f14-panel.okururu-f14-panel-minimized .okururu-f14-close {
+  display: none !important;
+}
+.okururu-f14-header {
+  background: linear-gradient(135deg, #4472C4 0%, #2F528F 100%);
+  color: #fff;
+  padding: 8px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* v1.66.1: 右配置に戻す（クロさん「右のほうが操作しやすい」）。左上のみ角丸（右端は画面端と同化） */
+  border-radius: 6px 0 0 0;
+  flex: none;
+}
+.okururu-f14-header-title {
+  font-weight: 700;
+  font-size: 13px;
+}
+.okururu-f14-close {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  border-radius: 3px;
+  font-family: inherit;
+}
+.okururu-f14-close:hover {
+  background: rgba(255,255,255,0.18);
+}
+/* v1.65.1: 最小化ボタン */
+.okururu-f14-min {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  border-radius: 3px;
+  font-family: inherit;
+  margin-left: auto;
+  line-height: 1;
+}
+.okururu-f14-min:hover {
+  background: rgba(255,255,255,0.18);
+}
+.okururu-f14-note {
+  background: #E7EFFB;
+  color: #143C8C;
+  padding: 6px 10px;
+  font-size: 12px;
+  border-bottom: 1px solid #B4C7E7;
+  flex: none;
+}
+.okururu-f14-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+.okururu-f14-step {
+  display: grid;
+  grid-template-columns: 28px 1fr 28px;
+  gap: 4px;
+  padding: 8px 10px;
+  border-bottom: 1px solid #EEE;
+  align-items: start;
+  position: relative;
+}
+.okururu-f14-step-current {
+  background: #E7EFFB;
+  border-left: 3px solid #4472C4;
+}
+.okururu-f14-step-done {
+  background: #F0F8F0;
+}
+.okururu-f14-step-done .okururu-f14-step-title {
+  text-decoration: line-through;
+  color: #888;
+}
+.okururu-f14-step-chk {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 2px;
+}
+.okururu-f14-step-chk input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #4472C4;
+}
+.okururu-f14-step-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.okururu-f14-step-num {
+  display: none; /* 番号は title 横でなく、左にチェックがあるので重複を避ける */
+}
+.okururu-f14-step-title {
+  font-weight: 700;
+  font-size: 13px;
+  color: #2F528F;
+  line-height: 1.4;
+}
+
+/* ---- F14 操作ガイド：全体図呼出バー / コンパクトリスト ---- */
+.okururu-f14-overview-bar {
+  flex: none;
+  padding: 8px 10px;
+  border-bottom: 1px solid #B4C7E7;
+  background: #FFFFFF;
+}
+.okururu-f14-overview-btn {
+  width: 100%;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #2F528F;
+  background: #FFFFFF;
+  border: 1.5px solid #4472C4;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.okururu-f14-overview-btn:hover {
+  background: #4472C4;
+  color: #FFFFFF;
+}
+.okururu-f14-list-compact {
+  padding: 0;
+}
+/* 現在ステップカード（コンパクト表示時のヘッドライン） */
+.okururu-f14-step-current-card {
+  background: #FFF8DD;
+  border-left: 4px solid #E1B007;
+  padding: 8px 10px 10px 10px;
+  margin: 6px 8px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(225, 176, 7, 0.18);
+}
+.okururu-f14-current-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: #E1B007;
+  padding: 2px 8px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  letter-spacing: 0.3px;
+}
+.okururu-f14-current-title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.okururu-f14-current-chk {
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.okururu-f14-current-chk input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #2D8B57;
+  margin: 0;
+}
+.okururu-f14-current-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #6A5320;
+  line-height: 1.4;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.okururu-f14-current-desc {
+  font-size: 11.5px;
+  color: #45506B;
+  line-height: 1.55;
+  margin-bottom: 4px;
+}
+.okururu-f14-current-helptoggle {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #2F528F;
+  background: #FFFFFF;
+  border: 1px solid #B4C7E7;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.12s ease;
+}
+.okururu-f14-current-helptoggle:hover {
+  background: #E7EFFB;
+}
+.okururu-f14-current-helptoggle[aria-expanded="true"] {
+  background: #4472C4;
+  color: #FFFFFF;
+  border-color: #2F528F;
+}
+.okururu-f14-current-helpbox {
+  margin-top: 6px;
+  padding: 6px 10px;
+  background: #FFFFFF;
+  border: 1px solid #E0D08A;
+  border-radius: 3px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #45506B;
+}
+.okururu-f14-current-helpbox[hidden] {
+  display: none !important;
+}
+.okururu-f14-divider {
+  border: 0;
+  border-top: 1px dashed #D5DEEC;
+  margin: 4px 8px;
+  height: 0;
+}
+/* セクション見出し（その他のステップ など） */
+.okururu-f14-section-header {
+  margin: 10px 0 4px 0;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #6A7588;
+  background: #EEF2FA;
+  border-top: 1px solid #D5DEEC;
+  border-bottom: 1px solid #D5DEEC;
+  letter-spacing: 0.5px;
+  text-transform: none;
+}
+/* 他のステップ mini 表示 */
+.okururu-f14-step-mini {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  font-size: 12px;
+  border-bottom: 1px solid #F0F2F6;
+  color: #45506B;
+  cursor: default;
+  transition: background 0.1s ease;
+}
+.okururu-f14-step-mini:hover {
+  background: #F8FAFD;
+}
+.okururu-f14-step-mini-chk {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.okururu-f14-step-mini-chk input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  accent-color: #4472C4;
+  margin: 0;
+}
+.okururu-f14-step-mini-title {
+  font-size: 12px;
+  color: #45506B;
+  line-height: 1.4;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+/* v1.66.4 (2026-05-18): クロさん FB「4番はなぜ線で消されてる？」。
+   取り消し線（line-through）は「もう触らないもの」と誤解されるので廃止。
+   完了は緑文字＋✓ プレフィクスで表現（F18 反映時の自動チェックでも「完了確認」感を持たせる）。 */
+.okururu-f14-step-mini-done .okururu-f14-step-mini-title {
+  color: #2D8B57;
+}
+.okururu-f14-step-mini-done .okururu-f14-step-mini-title::before {
+  content: '✓ ';
+  color: #2D8B57;
+  font-weight: 700;
+}
+.okururu-f14-step-mini-done {
+  background: #F6F9F6;
+}
+/* v1.66.4: 現在ステップを「選択中」として強調（リストから非表示にせず残す）
+   クロさん FB「12がリストから抜けてますが、選択させている表示にして」 */
+.okururu-f14-step-mini-current {
+  background: linear-gradient(180deg, #FFFBEA 0%, #FFF4C2 100%) !important;
+  border-left: 4px solid #E1B007 !important;
+  padding-left: 6px;
+  font-weight: 700;
+}
+.okururu-f14-step-mini-current .okururu-f14-step-mini-title {
+  color: #2F528F !important;
+}
+.okururu-f14-step-mini-current.okururu-f14-step-mini-done {
+  background: linear-gradient(180deg, #FFFBEA 0%, #FFF4C2 100%) !important;
+}
+.okururu-f14-step-mini-current.okururu-f14-step-mini-done .okururu-f14-step-mini-title {
+  color: #2F528F !important;
+  text-decoration: none !important;
+}
+/* フッター */
+.okururu-f14-footer {
+  flex: none;
+  padding: 6px 10px;
+  border-top: 1px solid #E0E6F0;
+  background: #FAFBFD;
+  font-size: 10.5px;
+  color: #6A7588;
+  text-align: center;
+  line-height: 1.45;
+}
+
+/* ---- F4 価格自動計算 UI ---- */
+.okururu-f4-priceNote {
+  margin-left: 8px;
+  font-size: 11px;
+  color: #666;
+  font-weight: normal;
+}
+.okururu-f4-priceRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.okururu-f4-sellInput {
+  width: 110px;
+  padding: 6px 10px;
+  border: 1.5px solid #B4C7E7;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: right;
+  font-family: inherit;
+}
+.okururu-f4-sellInput:focus {
+  outline: none;
+  border-color: #2F528F;
+  box-shadow: 0 0 0 2px rgba(68, 114, 196, 0.18);
+}
+.okururu-f4-priceUnit {
+  font-size: 13px;
+  color: #2F528F;
+  font-weight: 600;
+}
+.okururu-f4-calcResult {
+  margin-left: 8px;
+  font-size: 13px;
+  color: #143C8C;
+  background: #E7EFFB;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid #B4C7E7;
+}
+.okururu-f4-calcResult b {
+  color: #2D8B57;
+  font-size: 14px;
+}
+
+.okururu-f4-optional {
+  display: inline-block;
+  background: #5BA77F;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 8px;
+  margin: 0 4px;
+  vertical-align: middle;
+}
+.okururu-f4-priceNote-inline {
+  font-size: 11px;
+  color: #888;
+  font-style: italic;
+}
+
+/* ---- モーダル閉じるボタン（×、右上常設） ---- */
+.okururu-modal-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: #888;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 50%;
+  line-height: 1;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.okururu-modal-close:hover {
+  background: #F0F4FB;
+  color: #2F528F;
+}
+.okururu-modal-close:active {
+  background: #D5E1F4;
+}
+
+/* ※任意 バッジを更に強調 */
+.okururu-f4-optional {
+  font-weight: 800 !important;
+  font-size: 11px !important;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   F14 オペレーション全体図モーダル
+   ============================================================ */
+.okururu-f14-modal-card {
+  width: min(720px, 92vw);
+  max-height: 88vh;
+  display: flex !important;
+  flex-direction: column;
+  padding: 0 !important;
+}
+.okururu-f14-modal-card .okururu-modal-title {
+  flex-shrink: 0;
+  padding: 14px 44px 12px 18px;
+  border-bottom: 1px solid #E0E6F0;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #2F528F;
+  background: linear-gradient(180deg, #F4F8FF 0%, #FFFFFF 100%);
+}
+.okururu-f14-modal-card .okururu-modal-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 14px 18px 16px 18px;
+}
+.okururu-f14-modal-card .okururu-modal-btnrow {
+  flex-shrink: 0;
+  padding: 10px 14px;
+  border-top: 1px solid #E0E6F0;
+  background: #FAFBFD;
+}
+.okururu-f14-modal-intro {
+  margin: 0 0 12px 0;
+  padding: 8px 12px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #45506B;
+  background: #F2F6FE;
+  border-left: 3px solid #4472C4;
+  border-radius: 3px;
+}
+.okururu-f14-modal-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.okururu-f14-modal-step {
+  background: #FFFFFF;
+  border: 1px solid #D5DEEC;
+  border-radius: 6px;
+  padding: 10px 12px;
+  box-shadow: 0 1px 2px rgba(47, 82, 143, 0.05);
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.okururu-f14-modal-step:hover {
+  border-color: #4472C4;
+  box-shadow: 0 2px 6px rgba(47, 82, 143, 0.10);
+}
+.okururu-f14-modal-step-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.okururu-f14-modal-step-num {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #4472C4;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.okururu-f14-modal-step-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.okururu-f14-modal-step-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #2F528F;
+  line-height: 1.45;
+  margin-bottom: 3px;
+}
+.okururu-f14-modal-step-desc {
+  font-size: 12px;
+  color: #555E73;
+  line-height: 1.55;
+}
+.okururu-f14-modal-step-toggle {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #B4C7E7;
+  background: #FFFFFF;
+  color: #4472C4;
+  font-size: 11px;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s ease, transform 0.12s ease;
+}
+.okururu-f14-modal-step-toggle:hover {
+  background: #E7EFFB;
+}
+.okururu-f14-modal-step-toggle[aria-expanded="true"] {
+  background: #4472C4;
+  color: #FFFFFF;
+  transform: rotate(180deg);
+}
+.okururu-f14-modal-step-helpbox {
+  margin-top: 8px;
+  padding: 8px 10px;
+  background: #FFFBE6;
+  border-left: 3px solid #E1B007;
+  border-radius: 3px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #45506B;
+}
+.okururu-f14-modal-step-helpbox[hidden] {
+  display: none !important;
+}
+.okururu-f14-modal-arrow {
+  text-align: center;
+  font-size: 14px;
+  color: #B4C7E7;
+  line-height: 1;
+  margin: 4px 0;
+}
+.okururu-f14-modal-end {
+  margin-top: 10px;
+  padding: 8px 12px;
+  text-align: center;
+  font-size: 11px;
+  color: #2D8B57;
+  background: #E9F5EE;
+  border: 1px dashed #5BA77F;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* ============================================================
+   F21 査定件数 履歴モーダル
+   ============================================================ */
+.okururu-f21-history-card {
+  width: min(720px, 94vw);
+  max-height: 90vh;
+  display: flex !important;
+  flex-direction: column;
+  padding: 0 !important;
+}
+.okururu-f21-history-card .okururu-modal-title {
+  flex-shrink: 0;
+  padding: 14px 44px 12px 18px;
+  border-bottom: 1px solid #E0E6F0;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #2F528F;
+  background: linear-gradient(180deg, #F4F8FF 0%, #FFFFFF 100%);
+}
+.okururu-f21-history-card .okururu-modal-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 14px 18px 16px 18px;
+}
+.okururu-f21-history-card .okururu-modal-btnrow {
+  flex-shrink: 0;
+  padding: 10px 14px;
+  border-top: 1px solid #E0E6F0;
+  background: #FAFBFD;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+.okururu-f21-history-intro {
+  margin: 0 0 12px 0;
+  padding: 8px 12px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #45506B;
+  background: #F2F6FE;
+  border-left: 3px solid #4472C4;
+  border-radius: 3px;
+}
+.okururu-f21-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-bottom: 10px;
+  background: #FFFFFF;
+}
+.okururu-f21-history-table thead th {
+  background: #EEF2FA;
+  color: #2F528F;
+  font-weight: 700;
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 2px solid #B4C7E7;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.okururu-f21-history-table tbody td {
+  padding: 7px 10px;
+  border-bottom: 1px solid #E5EBF4;
+  color: #333;
+  vertical-align: middle;
+  line-height: 1.45;
+}
+.okururu-f21-summary-row {
+  cursor: default;
+  transition: background 0.1s ease;
+}
+.okururu-f21-summary-row:hover {
+  background: #F8FAFD;
+}
+.okururu-f21-detail-row td {
+  padding: 0 !important;
+  background: #FAFBFD;
+}
+.okururu-f21-detail-row[hidden] {
+  display: none !important;
+}
+.okururu-f21-pc-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  font-size: 11px;
+  background: #FAFBFD;
+}
+.okururu-f21-pc-table thead th {
+  background: #E5EBF4;
+  color: #45506B;
+  font-weight: 600;
+  padding: 5px 10px;
+  font-size: 11px;
+  text-align: left;
+}
+.okururu-f21-pc-table tbody td {
+  padding: 5px 10px;
+  border-bottom: 1px solid #EEF2F8;
+  color: #45506B;
+}
+.okururu-f21-pc-row-mine {
+  background: #FFF5E6;
+}
+.okururu-f21-pc-row-mine td {
+  color: #B25D00;
+  font-weight: 600;
+}
+.okururu-f21-expand-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #B4C7E7;
+  background: #FFFFFF;
+  color: #4472C4;
+  font-size: 9px;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 0;
+  margin-right: 4px;
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+.okururu-f21-expand-btn:hover {
+  background: #E7EFFB;
+}
+.okururu-f21-expand-btn[aria-expanded="true"],
+.okururu-f21-expand-btn.is-expanded {
+  background: #4472C4;
+  color: #FFFFFF;
+  transform: rotate(90deg);
+}
+.okururu-f21-history-note {
+  margin: 8px 0 0 0;
+  padding: 8px 10px;
+  background: #FFFBE6;
+  border-left: 3px solid #E1B007;
+  font-size: 11px;
+  line-height: 1.65;
+  color: #6A5320;
+  border-radius: 3px;
+}
+
+/* ============================================================
+   F18 買取可否 結果カード
+   ============================================================ */
+.okururu-f18-result-card {
+  margin: 12px 0 8px 0;
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: 2px solid #B4C7E7;
+  background: #F7FAFE;
+  box-shadow: 0 2px 6px rgba(47, 82, 143, 0.08);
+}
+.okururu-f18-result-success {
+  border-color: #5BA77F;
+  background: #E9F5EE;
+}
+.okururu-f18-result-warning {
+  border-color: #E1B007;
+  background: #FFF8DD;
+}
+.okururu-f18-result-danger {
+  border-color: #D14545;
+  background: #FCEBEB;
+}
+.okururu-f18-result-neutral {
+  border-color: #9AA8BF;
+  background: #F0F2F6;
+}
+.okururu-f18-result-info {
+  border-color: #4472C4;
+  background: #EEF4FE;
+}
+.okururu-f18-result-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2F528F;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.okururu-f18-result-success .okururu-f18-result-title {
+  color: #1F6B40;
+}
+.okururu-f18-result-warning .okururu-f18-result-title {
+  color: #8A6B00;
+}
+.okururu-f18-result-danger .okururu-f18-result-title {
+  color: #962525;
+}
+.okururu-f18-result-neutral .okururu-f18-result-title {
+  color: #4A5568;
+}
+.okururu-f18-result-desc {
+  font-size: 13px;
+  color: #45506B;
+  line-height: 1.6;
+}
+.okururu-f18-result-action {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 4px;
+  border-left: 3px solid #4472C4;
+}
+.okururu-f18-result-hint {
+  font-size: 12px;
+  color: #45506B;
+  line-height: 1.55;
+}
+.okururu-f18-result-summary {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #6A7588;
+}
+.okururu-f18-result-summary details {
+  background: #FAFBFD;
+  border: 1px solid #E0E6F0;
+  border-radius: 4px;
+  padding: 6px 10px;
+}
+.okururu-f18-result-summary summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #2F528F;
+  user-select: none;
+}
+.okururu-f18-result-summary ul {
+  margin: 6px 0 0 0;
+  padding-left: 18px;
+  line-height: 1.6;
+}
+.okururu-f18-result-summary li {
+  font-size: 11px;
+  color: #555E73;
+}
+.okururu-f18-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: background 0.12s ease, transform 0.05s ease;
+  font-family: inherit;
+}
+.okururu-f18-action-btn:hover {
+  transform: translateY(-1px);
+}
+.okururu-f18-action-go {
+  background: #4472C4;
+  color: #FFFFFF;
+  border-color: #2F528F;
+}
+.okururu-f18-action-go:hover {
+  background: #3961AE;
+}
+.okururu-f18-action-launch {
+  background: #5BA77F;
+  color: #FFFFFF;
+  border-color: #2D8B57;
+}
+.okururu-f18-action-launch:hover {
+  background: #4A946C;
+}
+
+/* =====================================================================
+ * v1.61.23 (2026-05-08): /big/case/ (一般仕入) 専用：
+ *   商品名カラムの横幅が狭いため、F11 メルカリ / F12 貴金属 / F13 ブランド /
+ *   F17 計算 ボタンを商品名の「下」に折り返して表示する。
+ *   トグルクラス `okururu-purchase-case` は main.js から <html> に付与。
+ * ===================================================================== */
+html.okururu-purchase-case .okururu-mercari-link,
+html.okururu-purchase-case .okururu-iosys-link,
+html.okururu-purchase-case .okururu-f12-btn,
+html.okururu-purchase-case .okururu-f13-btn,
+html.okururu-purchase-case .okururu-f17-btn {
+  display: inline-block;
+  margin-top: 4px;
+  margin-left: 0;
+  margin-right: 4px;
+}
+/* 各ボタン直前で改行：商品名 strong の直後（最初のボタン）と
+   グロス等の native タグの後（後続のボタン）を行頭に落とす */
+html.okururu-purchase-case strong + .okururu-mercari-link,
+html.okururu-purchase-case strong + .okururu-iosys-link,
+html.okururu-purchase-case strong + .okururu-f12-btn,
+html.okururu-purchase-case strong + .okururu-f13-btn,
+html.okururu-purchase-case strong + .okururu-f17-btn {
+  display: block;
+  clear: both;
+}
+
+/* =====================================================================
+ * F44 (v1.62.0): PD編集情報インライン表示
+ *   コンディションタグ select の下に「📋 PD 査定情報」パネルを表示
+ * ===================================================================== */
+.okururu-f44-panel {
+  /* v1.62.9: 商品メモ横にコンパクト配置。商品メモ form-group に並ぶ flex item として動作 */
+  margin: 0 0 0 8px;
+  padding: 4px 8px;
+  background: #f0f7ff;
+  border: 1px solid #c7d8ec;
+  border-radius: 4px;
+  font-size: 11px;
+  line-height: 1.35;
+  color: #222;
+  /* 高さを商品メモに合わせる：max-height + overflow で枠から溢れさせない */
+  max-height: 90px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: flex-start;
+  /* form-group の隣に並べる：商品メモが flex-grow:1 で伸びるので、こちらは 0 0 auto */
+  flex: 0 0 auto;
+  min-width: 240px;
+  max-width: 380px;
+}
+.okururu-f44-title {
+  /* タイトルは小さく、画像/属性と横並び */
+  display: none; /* スペース節約のため非表示（icon は属性側に統合） */
+}
+.okururu-f44-images {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.okururu-f44-images img {
+  /* v1.62.9: 64x64 → 36x36 に縮小して 1 行に収まるように */
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 3px;
+  border: 1px solid #d0d0d0;
+  cursor: zoom-in;
+  background: #fff;
+}
+.okururu-f44-attrs {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.okururu-f44-attr-item {
+  display: flex;
+  gap: 4px;
+  align-items: baseline;
+  font-size: 11px;
+}
+.okururu-f44-attr-label {
+  display: none; /* 1 種類しか出ないので label 非表示でテキスト直接表示 */
+}
+.okururu-f44-attr-value {
+  flex: 1 1 auto;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+/* ============================================================
+ * v1.71.5: scroll perf guard
+ *
+ *  scroll 中だけ拡張機能の常時表示 DOM 群を visibility:hidden に。
+ *  ReCORE 本体の重い rendering と二重に走るのを防ぐ。
+ *  utils/scroll_perf_guard.js が html[data-okururu-scrolling="1"] を制御。
+ *
+ *  対象から外す DOM：
+ *    - F14 操作ガイドパネル（ユーザー操作中の可能性）
+ *    - F71 ガイドモードバッジ（小さくて軽い、状態表示の意味も）
+ *    - F75 行末ボタン（tbody td 内なので scroll 対象と一緒に動く）
+ * ============================================================ */
+/*
+ * v1.71.20 (2026-05-22): クロさん FB「チカチカは変わっていない」根治対応。
+ *   真因：scroll-perf-guard 自体は正常動作（scroll start で attribute set → 150ms後 remove）
+ *   していたが、visibility:hidden → visible の切替そのものが「チカチカ」として
+ *   クロさんに見えていた。特に F3-A 青パネル（右上常時表示）が最も目立つ位置。
+ *   対策：
+ *     1. F3-A (#okururu-badge-f3a, #okururu-f3a-reopen) を scroll-guard 対象から **除外**
+ *        → scroll 中も visibility:visible のまま → チカチカしない
+ *     2. F3-A 内部に `contain: layout style; will-change: transform;` で rendering 隔離
+ *        → ReCORE 本体の reflow が伝播しない（rendering 負荷予防）
+ *     3. F18/F21 は引き続き hidden 対象（モーダル中央 / 右下小さい→チカチカ気にならない位置）
+ */
+/*
+ * v1.71.21 (2026-05-22): F21 緑バッジも F3-A と同じくチカチカするとの FB 対応。
+ *   F21 を scroll-perf-guard 対象から除外。F18 だけ visibility:hidden 維持（モーダル中央）。
+ */
+html[data-okururu-scrolling="1"] #okururu-f18-modal-overlay {
+  visibility: hidden !important;
+}
+
+/* F3-A / F21 内部 rendering 隔離（scroll 中の repaint 連鎖を抑止、チカチカ根治） */
+#okururu-badge-f3a,
+#okururu-badge-f21,
+#okururu-f3a-reopen,
+#okururu-f21-reopen {
+  contain: layout style;
+  will-change: transform;
+}
+
+/* ============================================================
+ * v1.71.10: F3-A 申込書チェックバッジ チカチカ抑止
+ *
+ *  クロさん 2026-05-21 FB「右上の青枠がマウスに合わせてチカチカ」対応の予防策。
+ *  F3-A 内部の transition/animation を無効化して、もし state 変化が起きても
+ *  視覚的な「チカチカ」が現れないようにする。
+ *
+ *  scroll-perf-guard (v1.71.5) で scroll 中は visibility:hidden になるが、
+ *  scroll してない時の mousemove 反応はそれだけでは抑えられないため、
+ *  CSS で transition/animation を物理的に無効化する。
+ * ============================================================ */
+#okururu-badge-f3a,
+#okururu-badge-f3a *,
+#okururu-badge-f3a *::before,
+#okururu-badge-f3a *::after {
+  transition: none !important;
+  animation: none !important;
+}

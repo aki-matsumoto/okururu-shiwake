@@ -1,0 +1,10 @@
+{
+  "version": "0.6.0",
+  "title": "Release v0.6.0",
+  "force_min_version": "0.0.0",
+  "message": "デパコス対象に「対象外」区分のH欄〇プチプラ系5ブランドを追加（LUSH／FANCL・無印／キュレル・dプログラム・IHADA／KATE・Visee・CEZANNE／Tatcha・Drunk Elephant・The Ordinary）。計46ブランド。 / 誤一致除外(anti)機構：LUSH→BLUSH等、KATE→SKATE/KATE SPADE を除外。広いカナ(ラッシュ)は不採用。",
+  "min_version": "0.0.0",
+  "released_at": "2026-06-17T01:08:18.297Z",
+  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.6.0",
+  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.6.0.zip"
+}

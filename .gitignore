@@ -1,0 +1,17 @@
+*.lnk
+desktop.ini
+Thumbs.db
+.DS_Store
+.fuse_hidden*
+*.zip
+dist/
+.vscode/
+.idea/
+*.swp
+node_modules/
+package-lock.json
+*.log
+*.tmp
+*.bak
+*.orig
+*~

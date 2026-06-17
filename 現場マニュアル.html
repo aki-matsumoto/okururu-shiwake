@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>オクルウル 仕分け支援ツール｜つかいかた</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif; color:#1f2937; line-height:1.7; max-width:900px; margin:0 auto; padding:24px; background:#fff; }
+  h1 { font-size:24px; margin:0 0 4px; }
+  .sub { color:#6b7280; font-size:13px; margin-bottom:20px; }
+  h2 { font-size:18px; background:#2563EB; color:#fff; padding:6px 12px; border-radius:6px; margin:26px 0 12px; }
+  .chip { display:inline-block; padding:3px 10px; color:#fff; border-radius:4px; font-size:13px; font-weight:700; white-space:nowrap; }
+  .oroshi{background:linear-gradient(180deg,#FBBF24,#D97706);border:1px solid #B45309;}
+  .recore{background:linear-gradient(180deg,#34D399,#059669);border:1px solid #047857;}
+  .depacos{background:linear-gradient(180deg,#F9A8D4,#DB2777);border:1px solid #BE185D;}
+  .ban{background:linear-gradient(180deg,#F87171,#B91C1C);border:1px solid #991B1B;}
+  .itcode{background:linear-gradient(180deg,#60A5FA,#2563EB);border:1px solid #1D4ED8;}
+  .pbtn{display:inline-block;padding:2px 9px;background:#fff;color:#1D4ED8;border:1px solid #2563EB;border-radius:4px;font-size:13px;font-weight:700;}
+  table { border-collapse:collapse; width:100%; margin:8px 0 4px; }
+  td, th { border:1px solid #e5e7eb; padding:9px 11px; vertical-align:top; font-size:14px; }
+  th { background:#f3f4f6; text-align:left; width:170px; }
+  ol { margin:6px 0 6px 0; padding-left:22px; }
+  ol li { margin:6px 0; }
+  .step { background:#EFF6FF; border:1px solid #BFDBFE; border-radius:8px; padding:12px 16px; }
+  .note { background:#FEF3C7; border:1px solid #FCD34D; border-radius:8px; padding:10px 14px; font-size:13px; margin:10px 0; }
+  .warn { background:#FEE2E2; border:1px solid #FCA5A5; border-radius:8px; padding:10px 14px; font-size:13px; margin:10px 0; }
+  .small { color:#6b7280; font-size:12px; }
+  @media print { h2 { -webkit-print-color-adjust:exact; print-color-adjust:exact; } body{padding:0;} }
+</style>
+</head>
+<body>
+
+<h1>オクルウル 仕分け支援ツール｜つかいかた</h1>
+<div class="sub">ReCORE の買取ケース画面で、仕分けに必要なマークを自動表示します（v0.3.0）</div>
+
+<h2>① インストール（最初に1回だけ）</h2>
+<div class="step">
+<ol>
+  <li>Chrome のアドレス欄に <b>chrome://extensions</b> と入力して開く</li>
+  <li>画面右上の <b>「デベロッパーモード」</b> を <b>ON</b> にする</li>
+  <li>左上の <b>「パッケージ化されていない拡張機能を読み込む」</b> をクリック</li>
+  <li>共有フォルダの <b>okururu-shiwake</b> フォルダを選んで「フォルダーの選択」</li>
+  <li>ReCORE の買取ケース画面を開く（すでに開いていたら <b>F5 で再読み込み</b>）</li>
+</ol>
+</div>
+<div class="note">ツールバーのパズルアイコン → 「オクルウル 仕分け支援ツール」をピン留めしておくと、ON/OFF 切替が楽です。</div>
+
+<h2>② マークの意味</h2>
+<p>各商品の <b>名前のすぐ上</b> に、その商品の仕分けマークが出ます。</p>
+<table>
+  <tr><th><span class="chip oroshi">📦 卸</span></th><td>商品名の先頭が <b>□</b> の商品。<b>卸し行き</b>。卸マークを貼る。</td></tr>
+  <tr><th><span class="chip recore">🏯 リコア</span></th><td>商品名の先頭が <b>■</b> の商品。<b>リコア在庫行き</b>。リコアマークを貼る。</td></tr>
+  <tr><th><span class="chip depacos">🏬 デパコス</span></th><td>デパコス対象ブランドの化粧品。<b>デパコスまとめ出品</b>へ。</td></tr>
+  <tr><th><span class="chip ban">🚫 メルカリ禁止</span></th><td>メルカリに出してはいけないブランド（シャネル・ヴィトン・ナイキ等）。メルカリ出品禁止。</td></tr>
+  <tr><th><span class="chip itcode">📌 ITコード</span></th><td>ITコード（在庫ラベル）を貼る商品。買取3,000円以上の非コスメ／貴金属／販売4,000円以上 等。</td></tr>
+</table>
+<div class="note">デパコスでメルカリ禁止ブランド（シャネル・ディオール等）は <span class="chip depacos">🏬 デパコス</span> <span class="chip ban">🚫 メルカリ禁止</span> の<b>両方</b>が出ます。</div>
+
+<h2>③ ITコードの印刷</h2>
+<p><span class="chip itcode">📌 ITコード</span> が付いた商品には、印刷ボタンが出ます。</p>
+<table>
+  <tr><th><span class="pbtn">🖨 個別印刷</span></th><td>その商品1枚だけ印刷（マークの右隣のボタン）。</td></tr>
+  <tr><th><span class="pbtn">🖨 ITコード一括印刷（N枚）</span></th><td>画面下の「お客様用ページのURL取得」ボタンの下。ITコード対象を<b>まとめて印刷</b>。確認 → 順番に印刷（途中で止めるなら <b>ESC</b>）。</td></tr>
+</table>
+<div class="warn">⚠ ITコードは <b>買取確定（STOCKED）後</b> でないと印刷できません。確定前はボタンが押せません。</div>
+
+<h2>④ 画面が見やすくなります</h2>
+<p>仕分けに使わない <b>棚番号・他店価格・在庫属性</b> は自動で隠れます（ツールのポップアップで戻せます）。</p>
+
+<h2>⑤ 困ったとき</h2>
+<table>
+  <tr><th>赤い警告バーが出た</th><td>「査定支援ツール」と同時に動いていてマークが重複しています。<b>chrome://extensions でどちらか片方をOFF</b>にしてください。</td></tr>
+  <tr><th>マークが出ない</th><td>買取ケース画面（/bad/case/…）か確認。ページを <b>F5 で再読み込み</b>。それでも出なければツールのポップアップで各機能がONか確認。</td></tr>
+  <tr><th>青い「新バージョン」バー</th><td>新しい版が出たお知らせです。「今すぐ更新」を押すと最新になります。</td></tr>
+</table>
+
+<div class="small" style="margin-top:24px">オクルウル 仕分け支援ツール v0.3.0 ／ 株式会社マッチバンク ／ 困ったら管理者まで</div>
+
+</body>
+</html>

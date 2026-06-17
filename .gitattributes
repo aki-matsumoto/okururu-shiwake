@@ -1,0 +1,17 @@
+* text=auto eol=lf
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+*.png binary
+*.jpg binary
+*.zip binary
+
+# 配布 zip からは除外（リポ閲覧には残す）
+CHANGELOG.md      export-ignore
+INSTALL.md        export-ignore
+README.md         export-ignore
+tests/            export-ignore
+scripts/          export-ignore
+.github/          export-ignore
+.gitattributes    export-ignore
+.gitignore        export-ignore

@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.6.1] 2026-06-17
+### Fixed
+- デパコスマーク：ファッション雑貨カテゴリ（カテゴリ未取得/デフォルト時含む）では表示しないよう確定ガードを追加。
+
 ## [0.6.0] 2026-06-15
 ### Added
 - デパコス対象に「対象外」区分のH欄〇プチプラ系5ブランドを追加（LUSH／FANCL・無印／キュレル・dプログラム・IHADA／KATE・Visee・CEZANNE／Tatcha・Drunk Elephant・The Ordinary）。計46ブランド。

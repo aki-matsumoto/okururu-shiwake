@@ -1,10 +1,10 @@
 {
-  "version": "0.6.2",
-  "title": "Release v0.6.2",
+  "version": "0.6.3",
+  "title": "Release v0.6.3",
   "force_min_version": "0.0.0",
-  "message": "ITコード印刷を修正：行の「ラベル印刷」ドロップダウン（存在しない/別物）方式を廃止し、ReCORE標準の page-level「在庫ラベルを印刷する」を実行する方式に変更。ITコード=在庫ラベル、PDコード=カタログで別物。一括/個別ボタンとも在庫ラベル印刷を呼ぶ（ケース単位）。",
+  "message": "デパコスマークをTier別に表示：Tier1（ハイデパコス10ブランド：シャネル/ディオール/SK-II/クレドポー/トムフォード/エルメスB/ゲラン/YSL/ジバンシイ/ブルガリ）は「💎 ハイデパコス」、その他は「🏬 デパコス」。",
   "min_version": "0.0.0",
-  "released_at": "2026-06-17T12:13:14.866Z",
-  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.6.2",
-  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.6.2.zip"
+  "released_at": "2026-06-18T00:17:52.825Z",
+  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.6.3",
+  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.6.3.zip"
 }

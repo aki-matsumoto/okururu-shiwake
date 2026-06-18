@@ -18,6 +18,7 @@
   let enabled = true;
 
   const STYLE_DEPACOS = 'padding:2px 8px;background:linear-gradient(180deg,#F9A8D4 0%,#DB2777 100%);color:#fff;border:1px solid #BE185D;border-radius:3px;font-size:11px;font-weight:700;white-space:nowrap';
+  const STYLE_HIGH = 'padding:2px 8px;background:linear-gradient(180deg,#DB2777 0%,#9D174D 100%);color:#fff;border:1px solid #831843;border-radius:3px;font-size:11px;font-weight:700;white-space:nowrap';
   const STYLE_BAN = 'padding:2px 8px;background:linear-gradient(180deg,#F87171 0%,#B91C1C 100%);color:#fff;border:1px solid #991B1B;border-radius:3px;font-size:11px;font-weight:700;white-space:nowrap';
 
   const COSMETIC_CATEGORY_RE = /(化粧品|コスメ|スキンケア|メイク|ファンデーション|香水|フレグランス|オーデコロン|オードトワレ|オードパルファ|EAU\s*DE\s*|【\s*デフォルト\s*】|デフォルト)/i;
@@ -82,7 +83,10 @@
     }
     const bar = R.getMarkBar(strong);
     if (!bar) return;
-    if (wantDepa) ensureBadge(bar, DEPACOS_CLASS, STYLE_DEPACOS, '🏬 デパコス', depa.label + '：デパコスまとめ出品対象（H列〇）');
+    if (wantDepa) {
+      const high = depa.tier === 1;
+      ensureBadge(bar, DEPACOS_CLASS, high ? STYLE_HIGH : STYLE_DEPACOS, high ? '💎 ハイデパコス' : '🏬 デパコス', depa.label + (high ? '：ハイデパコス（Tier1）' : '：デパコスまとめ出品対象'));
+    }
     else dropBadge(bar, DEPACOS_CLASS);
     if (wantBan) ensureBadge(bar, BAN_CLASS, STYLE_BAN, '🚫 メルカリ禁止', ban.label + '：メルカリ出品禁止ブランド');
     else dropBadge(bar, BAN_CLASS);

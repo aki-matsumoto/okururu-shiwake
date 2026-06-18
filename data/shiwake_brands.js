@@ -19,16 +19,16 @@
   // H列〇 = デパコスまとめ出品対象（39）。patterns は商品名に出やすい英字/カナ表記。
   const DEPACOS39 = [
     // --- Tier 1 ---
-    { id: 'chanel',       label: 'CHANEL（シャネル）',           patterns: ['CHANEL', 'シャネル'] },
-    { id: 'dior',         label: 'Dior（ディオール）',            patterns: ['CHRISTIAN DIOR', ' DIOR', 'DIOR ', 'ディオール'] },
-    { id: 'skii',         label: 'SK-II',                         patterns: ['SK-II', 'SKII', 'SK 2', 'エスケーツー'] },
-    { id: 'cpb',          label: 'Clé de Peau Beauté（クレ・ド・ポー）', patterns: ['CLÉ DE PEAU', 'CLE DE PEAU', 'クレ・ド・ポー', 'クレドポー'] },
-    { id: 'tomford',      label: 'TOM FORD BEAUTY（トムフォード）', patterns: ['TOM FORD', 'トム フォード', 'トムフォード'] },
-    { id: 'hermesbeauty', label: 'HERMÈS BEAUTY（エルメス）',     patterns: ['HERMÈS', 'HERMES', 'エルメス'] },
-    { id: 'guerlain',     label: 'GUERLAIN（ゲラン）',            patterns: ['GUERLAIN', 'ゲラン'] },
-    { id: 'ysl',          label: 'YVES SAINT LAURENT（イヴ・サンローラン）', patterns: ['YVES SAINT LAURENT', 'YSL ', ' YSL', 'イヴ・サンローラン', 'イヴサンローラン', 'サンローラン'] },
-    { id: 'givenchy',     label: 'GIVENCHY（ジバンシイ）',        patterns: ['GIVENCHY', 'ジバンシイ', 'ジバンシィ', 'ジバンシー'] },
-    { id: 'bvlgari',      label: 'BVLGARI（ブルガリ）',           patterns: ['BVLGARI', 'BULGARI', 'ブルガリ'] },
+    { id: 'chanel', tier: 1,       label: 'CHANEL（シャネル）',           patterns: ['CHANEL', 'シャネル'] },
+    { id: 'dior', tier: 1,         label: 'Dior（ディオール）',            patterns: ['CHRISTIAN DIOR', ' DIOR', 'DIOR ', 'ディオール'] },
+    { id: 'skii', tier: 1,         label: 'SK-II',                         patterns: ['SK-II', 'SKII', 'SK 2', 'エスケーツー'] },
+    { id: 'cpb', tier: 1,          label: 'Clé de Peau Beauté（クレ・ド・ポー）', patterns: ['CLÉ DE PEAU', 'CLE DE PEAU', 'クレ・ド・ポー', 'クレドポー'] },
+    { id: 'tomford', tier: 1,      label: 'TOM FORD BEAUTY（トムフォード）', patterns: ['TOM FORD', 'トム フォード', 'トムフォード'] },
+    { id: 'hermesbeauty', tier: 1, label: 'HERMÈS BEAUTY（エルメス）',     patterns: ['HERMÈS', 'HERMES', 'エルメス'] },
+    { id: 'guerlain', tier: 1,     label: 'GUERLAIN（ゲラン）',            patterns: ['GUERLAIN', 'ゲラン'] },
+    { id: 'ysl', tier: 1,          label: 'YVES SAINT LAURENT（イヴ・サンローラン）', patterns: ['YVES SAINT LAURENT', 'YSL ', ' YSL', 'イヴ・サンローラン', 'イヴサンローラン', 'サンローラン'] },
+    { id: 'givenchy', tier: 1,     label: 'GIVENCHY（ジバンシイ）',        patterns: ['GIVENCHY', 'ジバンシイ', 'ジバンシィ', 'ジバンシー'] },
+    { id: 'bvlgari', tier: 1,      label: 'BVLGARI（ブルガリ）',           patterns: ['BVLGARI', 'BULGARI', 'ブルガリ'] },
     // --- Tier 2 ---
     { id: 'esteelauder',  label: 'ESTÉE LAUDER（エスティ ローダー）', patterns: ['ESTÉE LAUDER', 'ESTEE LAUDER', 'エスティ ローダー', 'エスティローダー'] },
     { id: 'lancome',      label: 'LANCÔME（ランコム）',           patterns: ['LANCÔME', 'LANCOME', 'ランコム'] },
@@ -79,12 +79,12 @@
     { id: 'gucci',     label: 'GUCCI（グッチ）',                 patterns: ['GUCCI', 'グッチ'] },
     { id: 'coach',     label: 'COACH（コーチ）',                 patterns: ['COACH', 'コーチ'] },
     { id: 'northface', label: 'THE NORTH FACE（ザ・ノース・フェイス）', patterns: ['NORTH FACE', 'ノースフェイス', 'ノース フェイス'] },
-    { id: 'chanel',    label: 'CHANEL（シャネル）',              patterns: ['CHANEL', 'シャネル'] },
+    { id: 'chanel', tier: 1,    label: 'CHANEL（シャネル）',              patterns: ['CHANEL', 'シャネル'] },
     { id: 'nike',      label: 'NIKE（ナイキ）',                  patterns: ['NIKE', 'ナイキ'] },
     { id: 'prada',     label: 'PRADA（プラダ）',                 patterns: ['PRADA', 'プラダ'] },
     { id: 'lv',        label: 'LOUIS VUITTON（ルイ・ヴィトン）',  patterns: ['LOUIS VUITTON', 'ルイヴィトン', 'ルイ・ヴィトン', 'ヴィトン'] },
-    { id: 'dior',      label: 'Dior（ディオール）',              patterns: ['DIOR', 'ディオール'] },
-    { id: 'cpb',       label: 'Clé de Peau Beauté（クレ・ド・ポー）', patterns: ['CLÉ DE PEAU', 'CLE DE PEAU', 'クレ・ド・ポー', 'クレドポー'] },
+    { id: 'dior', tier: 1,      label: 'Dior（ディオール）',              patterns: ['DIOR', 'ディオール'] },
+    { id: 'cpb', tier: 1,       label: 'Clé de Peau Beauté（クレ・ド・ポー）', patterns: ['CLÉ DE PEAU', 'CLE DE PEAU', 'クレ・ド・ポー', 'クレドポー'] },
     { id: 'elegance',  label: 'Elegance（エレガンス）',          patterns: ['ELEGANCE', 'エレガンス'] }
   ];
 

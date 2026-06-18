@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.6.6] 2026-06-17
+### Added
+- **HAKU をデパコスマークに追加（v1.2でH欄〇）。** これまで『ハク』が他語と誤一致するため未登録だったが、patterns を『HAKU』英字のみにし、HAKUHODO/白鳳堂/BIHAKU を anti で除外して安全に登録。これで仕分けのデパコスマークが v1.2 の「Recoreまとめ出品〇」と完全一致（THE BODY SHOP含む・HAKU含む）。
+
 ## [0.6.5] 2026-06-17
 ### Fixed
 - **H欄〇でない「まとめ出品」誤登録を削除（v1.2定義表で照合）。** LUSH／FANCL・無印良品／Tatcha・Drunk Elephant・The Ordinary は H欄〇でないためデパコスマーク対象から削除。THE BODY SHOP は H欄〇（対象外区分だがまとめ出品〇）なので維持。これで仕分けのデパコスマークが v1.2 の「Recoreまとめ出品〇」と一致（HAKUは『ハク』の誤一致回避で技術的に除外）。

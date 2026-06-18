@@ -1,10 +1,10 @@
 {
-  "version": "0.6.5",
-  "title": "Release v0.6.5",
-  "force_min_version": "0.6.5",
-  "message": "H欄〇でない誤登録（LUSH／FANCL・無印良品／Tatcha・Drunk Elephant・The Ordinary）をデパコスマークから削除。THE BODY SHOP は H欄〇のため維持。v1.2定義表の「Recoreまとめ出品〇」と一致。",
+  "version": "0.6.6",
+  "title": "Release v0.6.6",
+  "force_min_version": "0.6.6",
+  "message": "HAKU をデパコスマークに追加（v1.2でH欄〇）。『HAKU』英字＋anti(HAKUHODO/白鳳堂/BIHAKU)で誤一致を回避。これで仕分けのデパコスマークが v1.2 の Recoreまとめ出品〇 と完全一致。",
   "min_version": "0.0.0",
-  "released_at": "2026-06-18T05:00:00.000Z",
-  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.6.5",
-  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.6.5.zip"
+  "released_at": "2026-06-18T05:35:00.000Z",
+  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.6.6",
+  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.6.6.zip"
 }

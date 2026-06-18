@@ -59,7 +59,8 @@
     { id: 'clarins',      label: 'CLARINS（クラランス）',         patterns: ['CLARINS', 'クラランス'] },
     // --- 対象外区分だが まとめ出品〇 ---
     { id: 'bodyshop',     label: 'THE BODY SHOP（ザ・ボディショップ）', patterns: ['THE BODY SHOP', 'BODY SHOP', 'ボディショップ', 'ザボディショップ'] },
-    { id: 'elixir',       label: 'エリクシール 等（資生堂DS）',    patterns: ['ELIXIR', 'エリクシール'] }, // マキアージュは独立エントリ化、'HAKU'/'ハク'は美白誤一致のため不採用
+    { id: 'elixir',       label: 'エリクシール 等（資生堂DS）',    patterns: ['ELIXIR', 'エリクシール'] }, // マキアージュは独立エントリ化
+    { id: 'haku',         label: 'HAKU（ハク）',                  patterns: ['HAKU'], anti: ['HAKUHODO', '白鳳堂', 'BIHAKU'] }, // v0.6.5: H欄〇で追加。'ハク'(katakana)はハクスリー等と誤一致するため不採用、HAKUHODO/白鳳堂/BIHAKU(美白ローマ字)はantiで除外
     // --- 別カテゴリだが まとめ出品〇 ---
     { id: 'lelabo',       label: 'LE LABO（ル ラボ）',            patterns: ['LE LABO', 'ル ラボ', 'ルラボ'] },
     { id: 'margiela',     label: 'Maison Margiela REPLICA（マルジェラ レプリカ）', patterns: ['MAISON MARGIELA', 'MARGIELA', 'REPLICA', 'マルジェラ', 'レプリカ'] },

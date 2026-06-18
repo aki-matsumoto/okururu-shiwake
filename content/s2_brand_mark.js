@@ -22,7 +22,7 @@
   const STYLE_BAN = 'padding:2px 8px;background:linear-gradient(180deg,#F87171 0%,#B91C1C 100%);color:#fff;border:1px solid #991B1B;border-radius:3px;font-size:11px;font-weight:700;white-space:nowrap';
 
   const COSMETIC_CATEGORY_RE = /(化粧品|コスメ|スキンケア|メイク|ファンデーション|香水|フレグランス|オーデコロン|オードトワレ|オードパルファ|EAU\s*DE\s*|【\s*デフォルト\s*】|デフォルト)/i;
-  const EXCLUDE_NON_COSMETIC_RE = /(ファッション雑貨|日用雑貨|小物|バッグ|財布|ベルト|スカーフ|時計|腕時計|ジュエリー|宝飾|アクセサリー|スマートフォン[・･]?タブレット|スマホ|家電|オーディオ|カメラ|ゲーム|衣料|アパレル|シャツ|ジャケット|コート|ワンピース|スカート|パンツ|靴|スニーカー|サプリ|食品|飲料)/i;
+  const EXCLUDE_NON_COSMETIC_RE = /(ファッション雑貨|日用雑貨|服飾小物|バッグ|財布|ベルト|スカーフ|時計|腕時計|ジュエリー|宝飾|アクセサリー|スマートフォン[・･]?タブレット|スマホ|家電|オーディオ|カメラ|ゲーム|衣料|アパレル|シャツ|ジャケット|コート|ワンピース|スカート|パンツ|靴|スニーカー|サプリ|食品|飲料)/i;
 
   const _rowCosmeCache = new WeakMap();
 

@@ -61,8 +61,6 @@
     { id: 'bodyshop',     label: 'THE BODY SHOP（ザ・ボディショップ）', patterns: ['THE BODY SHOP', 'BODY SHOP', 'ボディショップ', 'ザボディショップ'] },
     { id: 'lush',         label: 'LUSH（ラッシュ）',               patterns: ['LUSH'], anti: ['BLUSH', 'PLUSH', 'SLUSH', 'FLUSH'] }, // 'ラッシュ'はアイラッシュ等と衝突→不採用、'LUSH'はBLUSH等をantiで除外
     { id: 'fancl',        label: 'FANCL／無印良品コスメ',          patterns: ['FANCL', 'ファンケル', '無印良品'] },
-    { id: 'curel',        label: 'Curél／dプログラム／IHADA',      patterns: ['CUREL', 'CUR\u00c9L', 'キュレル', 'D-PROGRAM', 'dプログラム', 'IHADA', 'イハダ'] },
-    { id: 'kate',         label: 'KATE／Visee／CEZANNE',           patterns: ['KATE', 'ケイト', 'VISEE', 'ヴィセ', 'CEZANNE', 'セザンヌ'], anti: ['SKATE', 'KATE SPADE'] },
     { id: 'tatcha',       label: 'Tatcha／Drunk Elephant／The Ordinary', patterns: ['TATCHA', 'タッチャ', 'DRUNK ELEPHANT', 'ドランクエレファント', 'THE ORDINARY', 'ジ・オーディナリー', 'オーディナリー'] },
     { id: 'elixir',       label: 'エリクシール 等（資生堂DS）',    patterns: ['ELIXIR', 'エリクシール'] }, // マキアージュは独立エントリ化、'HAKU'/'ハク'は美白誤一致のため不採用
     // --- 別カテゴリだが まとめ出品〇 ---
@@ -88,6 +86,24 @@
     { id: 'elegance',  label: 'Elegance（エレガンス）',          patterns: ['ELEGANCE', 'エレガンス'] }
   ];
 
+  // v0.7.0: H欄〇でないのに広い親会社名パターン（資生堂/カネボウ）で誤ってデパコス判定される
+  //   量販/ドラッグストアブランドを除外（クロさん 2026-06-17：同ブランド内でも量販店のものは省く）。
+  //   ※査定拡張(okuruuru-mistake-prevention)の EXCLUDE_PATTERNS と同一分類で統一。
+  const EXCLUDE_DEPACOS = [
+    'ウーノ', 'アクアレーベル', 'AQUALABEL',
+    'Dプログラム', 'D プログラム', 'dプログラム', 'd プログラム', 'D PROGRAM', 'D-PROGRAM',
+    '専科', 'マシェリ', 'フィーノ', 'イハダ', 'IHADA',
+    'インテグレート', 'INTEGRATE', 'マジョリカ', 'MAJOLICA', 'プリオール', 'ドゥーエ', 'ツバキ', 'TSUBAKI', 'アネッサ', 'ANESSA',
+    'ケイト', 'KATE', 'ヴィセ', 'VISEE', 'セザンヌ', 'CEZANNE', 'キュレル', 'CUREL',
+    'メディア', 'フリープラス', 'FREEPLUS', 'スイサイ', 'SUISAI', 'アリィー', 'ALLIE', 'エビータ', 'EVITA'
+  ];
+  function isExcludedFromDepacos(name) {
+    if (!name) return false;
+    const u = String(name).toUpperCase();
+    for (const p of EXCLUDE_DEPACOS) { if (u.indexOf(p.toUpperCase()) !== -1) return true; }
+    return false;
+  }
+
   function matchBrand(productName, list) {
     if (!productName || typeof productName !== 'string') return null;
     const upper = productName.toUpperCase();
@@ -104,7 +120,7 @@
   window.OKURURU.data.shiwakeBrands = {
     DEPACOS39,
     MERCARI_BAN13,
-    detectDepacos: (name) => matchBrand(name, DEPACOS39),
+    detectDepacos: (name) => isExcludedFromDepacos(name) ? null : matchBrand(name, DEPACOS39),
     detectMercariBan: (name) => matchBrand(name, MERCARI_BAN13),
     counts: { depacos: DEPACOS39.length, ban: MERCARI_BAN13.length }
   };

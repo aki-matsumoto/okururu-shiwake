@@ -59,9 +59,6 @@
     { id: 'clarins',      label: 'CLARINS（クラランス）',         patterns: ['CLARINS', 'クラランス'] },
     // --- 対象外区分だが まとめ出品〇 ---
     { id: 'bodyshop',     label: 'THE BODY SHOP（ザ・ボディショップ）', patterns: ['THE BODY SHOP', 'BODY SHOP', 'ボディショップ', 'ザボディショップ'] },
-    { id: 'lush',         label: 'LUSH（ラッシュ）',               patterns: ['LUSH'], anti: ['BLUSH', 'PLUSH', 'SLUSH', 'FLUSH'] }, // 'ラッシュ'はアイラッシュ等と衝突→不採用、'LUSH'はBLUSH等をantiで除外
-    { id: 'fancl',        label: 'FANCL／無印良品コスメ',          patterns: ['FANCL', 'ファンケル', '無印良品'] },
-    { id: 'tatcha',       label: 'Tatcha／Drunk Elephant／The Ordinary', patterns: ['TATCHA', 'タッチャ', 'DRUNK ELEPHANT', 'ドランクエレファント', 'THE ORDINARY', 'ジ・オーディナリー', 'オーディナリー'] },
     { id: 'elixir',       label: 'エリクシール 等（資生堂DS）',    patterns: ['ELIXIR', 'エリクシール'] }, // マキアージュは独立エントリ化、'HAKU'/'ハク'は美白誤一致のため不採用
     // --- 別カテゴリだが まとめ出品〇 ---
     { id: 'lelabo',       label: 'LE LABO（ル ラボ）',            patterns: ['LE LABO', 'ル ラボ', 'ルラボ'] },

@@ -1,10 +1,10 @@
 {
-  "version": "0.6.4",
-  "title": "Release v0.6.4",
-  "force_min_version": "0.6.4",
-  "message": "デパコスマークの量販ブランド誤判定を修正。H欄〇でない量販（ウーノ/アクアレーベル/専科/dプログラム/IHADA/インテグレート/マジョリカマジョルカ/プリオール/ドゥーエ/ツバキ/アネッサ/メディア/フリープラス/スイサイ/アリィー/エビータ）をデパコスマーク対象外に。誤登録のKATE/ヴィセ/セザンヌ・キュレルエントリも削除。本物デパコス（マキアージュ/エリクシール等）は維持。メイク小物の誤除外も修正。査定拡張と分類統一。",
+  "version": "0.6.5",
+  "title": "Release v0.6.5",
+  "force_min_version": "0.6.5",
+  "message": "H欄〇でない誤登録（LUSH／FANCL・無印良品／Tatcha・Drunk Elephant・The Ordinary）をデパコスマークから削除。THE BODY SHOP は H欄〇のため維持。v1.2定義表の「Recoreまとめ出品〇」と一致。",
   "min_version": "0.0.0",
-  "released_at": "2026-06-18T04:00:00.000Z",
-  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.6.4",
-  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.6.4.zip"
+  "released_at": "2026-06-18T05:00:00.000Z",
+  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.6.5",
+  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.6.5.zip"
 }

@@ -1,10 +1,10 @@
 {
-  "version": "0.6.6",
-  "title": "Release v0.6.6",
+  "version": "0.6.7",
+  "title": "Release v0.6.7",
   "force_min_version": "0.6.6",
-  "message": "HAKU をデパコスマークに追加（v1.2でH欄〇）。『HAKU』英字＋anti(HAKUHODO/白鳳堂/BIHAKU)で誤一致を回避。これで仕分けのデパコスマークが v1.2 の Recoreまとめ出品〇 と完全一致。",
+  "message": "未振り分けマークを再定義（買取単価ベース）：香水カテゴリ×買取¥50以上→「🌸 香水」、化粧品/香水/サプリ/金券以外×買取¥50以上→「ややこし商品」（旧「まとめ待ち」）。いずれも📌ITコードも付与（販売額不問）。WGAは販売¥1/未入力のみに整理（販売1500〜3999の価格帯ルールは廃止）。",
   "min_version": "0.0.0",
-  "released_at": "2026-06-18T05:35:00.000Z",
-  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.6.6",
-  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.6.6.zip"
+  "released_at": "2026-06-19T14:34:52.008Z",
+  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.6.7",
+  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.6.7.zip"
 }

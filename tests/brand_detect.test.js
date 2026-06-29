@@ -11,7 +11,7 @@ function chk(name, expDepa, expBan) {
   if (!ok) { fail++; console.error('FAIL depa=' + d + ' ban=' + b + ' | ' + name); }
   else console.log('PASS | ' + name);
 }
-if (sb.counts.depacos !== 46) { fail++; console.error('FAIL depacos count ' + sb.counts.depacos); }
+if (sb.counts.depacos !== 42) { fail++; console.error('FAIL depacos count ' + sb.counts.depacos); }
 if (sb.counts.ban !== 13) { fail++; console.error('FAIL ban count ' + sb.counts.ban); }
 chk('SK-II フェイシャルトリートメントエッセンス', true, false);
 chk('資生堂 アルティミューン', true, false);
@@ -25,12 +25,14 @@ chk('エレガンス ラ プードル', false, true);
 chk('BVLGARI ブルガリ プールオム', true, false);
 chk('マキアージュ ドラマティック', true, false);
 chk('ビハク 美白美容液', false, false);
-chk('LUSH バスボム', true, false);
+chk('LUSH バスボム', false, false);
 chk('チーク BLUSH ピンク', false, false);
 chk('アイラッシュ マスカラ', false, false);
-chk('FANCL クレンジング', true, false);
-chk('KATE リップモンスター', true, false);
+chk('FANCL クレンジング', false, false);
+chk('KATE リップモンスター', false, false);
 chk('KATE SPADE 財布', false, false);
-chk('Tatcha ザ リッチクリーム', true, false);
+chk('Tatcha ザ リッチクリーム', false, false);
+chk('HAKU メラノフォーカスEV', true, false);
+chk('THE BODY SHOP ボディバター', true, false);
 if (fail) { console.error('\n❌ ' + fail + ' test(s) failed'); process.exit(1); }
 console.log('\n✅ all brand-detect tests passed');

@@ -30,9 +30,11 @@
       try { if (feat.s2_brandMark) feat.s2_brandMark.markRow(row, strong); } catch (e) {}
       try { if (feat.s3_itCodeMark) feat.s3_itCodeMark.markRow(row, strong); } catch (e) {}
       try { if (feat.s8_wgaMark) feat.s8_wgaMark.markRow(row, strong); } catch (e) {}
+      try { if (feat.s9_priceCheck) feat.s9_priceCheck.markRow(row, strong); } catch (e) {}
       try { if (feat.s4_itCodePrint) feat.s4_itCodePrint.decorateRow(row, strong); } catch (e) {}
     }
     try { if (feat.s4_itCodePrint) feat.s4_itCodePrint.ensureBulkButton(); } catch (e) {}
+    try { if (feat.s9_priceCheck) feat.s9_priceCheck.ensureFloatButton(); } catch (e) {}
     // 空のマークバーを掃除
     try { document.querySelectorAll('.shiwake-markbar').forEach((b) => { if (!b.children.length) b.remove(); }); } catch (e) {}
   }
@@ -54,7 +56,7 @@
   async function init() {
     const feat = F();
     const inits = [];
-    ['s1_oroshiRecoreMark', 's2_brandMark', 's3_itCodeMark', 's4_itCodePrint', 's5_conflictWarn', 's6_hideFields', 's7_updateNotifier', 's8_wgaMark'].forEach((k) => {
+    ['s1_oroshiRecoreMark', 's2_brandMark', 's3_itCodeMark', 's4_itCodePrint', 's5_conflictWarn', 's6_hideFields', 's7_updateNotifier', 's8_wgaMark', 's9_priceCheck'].forEach((k) => {
       if (feat[k] && typeof feat[k].init === 'function') inits.push(feat[k].init());
     });
     try { await Promise.all(inits); } catch (e) { /* noop */ }

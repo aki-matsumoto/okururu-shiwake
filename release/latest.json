@@ -1,10 +1,10 @@
 {
-  "version": "0.6.7",
-  "title": "Release v0.6.7",
+  "version": "0.7.0",
+  "title": "Release v0.7.0",
   "force_min_version": "0.6.6",
-  "message": "未振り分けマークを再定義（買取単価ベース）：香水カテゴリ×買取¥50以上→「🌸 香水」、化粧品/香水/サプリ/金券以外×買取¥50以上→「ややこし商品」（旧「まとめ待ち」）。いずれも📌ITコードも付与（販売額不問）。WGAは販売¥1/未入力のみに整理（販売1500〜3999の価格帯ルールは廃止）。",
+  "message": "リリース v0.7.0",
   "min_version": "0.0.0",
-  "released_at": "2026-06-19T14:34:52.008Z",
-  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.6.7",
-  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.6.7.zip"
+  "released_at": "2026-06-29T02:45:12.015Z",
+  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.7.0",
+  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.7.0.zip"
 }

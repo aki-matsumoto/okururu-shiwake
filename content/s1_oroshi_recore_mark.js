@@ -16,9 +16,12 @@
   const STYLE_O = 'padding:2px 8px;background:linear-gradient(180deg,#FBBF24 0%,#D97706 100%);color:#fff;border:1px solid #B45309;border-radius:3px;font-size:11px;font-weight:700;white-space:nowrap';
   const STYLE_R = 'padding:2px 8px;background:linear-gradient(180deg,#34D399 0%,#059669 100%);color:#fff;border:1px solid #047857;border-radius:3px;font-size:11px;font-weight:700;white-space:nowrap';
 
+  // 先頭の空白・ノイズ記号（●○◎◆◇★☆♪※・「」【】（）() 等）をスキップしてから □/■ を判定。
+  //  例：「●□クレ」「○■cocone」のように □/■ の前に記号が付いても卸/リコアを認識する。
+  const LEAD_NOISE_RE = /^[\s　●○◎◆◇★☆♪♬※‼!・･「」『』【】〔〕（）()\[\]<>＜＞|｜~～\-—–]+/;
   function classify(name) {
     if (!name) return null;
-    const head = name.replace(/^[\s　]+/, '').charAt(0);
+    const head = String(name).replace(LEAD_NOISE_RE, '').charAt(0);
     if (head === '□') return 'oroshi';
     if (head === '■') return 'recore';
     return null;

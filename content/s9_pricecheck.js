@@ -75,7 +75,9 @@
   // 対象＝WGA以外（販売¥1/未入力でない＝実価格あり）
   function needsPriceCheck(row) {
     var sell = sellValue(row);
-    if (sell === null || sell === 1) return false;
+    if (sell === null || sell === 1) return false; // WGA相当（販売¥1/未入力）は対象外
+    var buy = buyValue(row);
+    if (buy === 1) return false; // 1円まとめ（買取¥1）は対象外
     return true;
   }
 

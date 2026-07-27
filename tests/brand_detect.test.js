@@ -11,7 +11,7 @@ function chk(name, expDepa, expBan) {
   if (!ok) { fail++; console.error('FAIL depa=' + d + ' ban=' + b + ' | ' + name); }
   else console.log('PASS | ' + name);
 }
-if (sb.counts.depacos !== 42) { fail++; console.error('FAIL depacos count ' + sb.counts.depacos); }
+if (sb.counts.depacos !== 58) { fail++; console.error('FAIL depacos count ' + sb.counts.depacos); }
 if (sb.counts.ban !== 13) { fail++; console.error('FAIL ban count ' + sb.counts.ban); }
 chk('SK-II フェイシャルトリートメントエッセンス', true, false);
 chk('資生堂 アルティミューン', true, false);
@@ -34,5 +34,9 @@ chk('KATE SPADE 財布', false, false);
 chk('Tatcha ザ リッチクリーム', false, false);
 chk('HAKU メラノフォーカスEV', true, false);
 chk('THE BODY SHOP ボディバター', true, false);
+chk('LA MER クレーム ドゥ ラ メール', true, false);
+chk('CLINIQUE 拭き取り化粧水', true, false);
+chk('IPSA ザ・タイムR アクア', true, false);
+chk('ジョルジオ アルマーニ リップ マエストロ', true, true);
 if (fail) { console.error('\n❌ ' + fail + ' test(s) failed'); process.exit(1); }
 console.log('\n✅ all brand-detect tests passed');

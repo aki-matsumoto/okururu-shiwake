@@ -58,6 +58,20 @@
     } catch (e) { return false; }
   }
 
+  function buyValue(row) {
+    try { return window.OKURURU.utils.selectors.parsePriceValue((window.OKURURU.utils.detector.extractRowPrices(row) || {}).buy); }
+    catch (e) { return null; }
+  }
+  // s1（卸/リコア）バッジの有無・種別を読む（main.js の順序で s1 → s2 なので既に付いている）
+  function s1Kind(strong) {
+    try {
+      const bar = window.OKURURU.shiwake.rows.getExistingMarkBar(strong);
+      if (!bar) return null;
+      const b = bar.querySelector('.shiwake-s1-badge');
+      return b ? (b.dataset.kind || null) : null;
+    } catch (e) { return null; }
+  }
+
   function ensureBadge(bar, cls, style, text, title) {
     if (bar.querySelector('.' + cls)) return;
     const b = document.createElement('span');
@@ -72,10 +86,16 @@
     if (!data) return;
     const name = (strong.textContent || '').trim();
     const R = window.OKURURU.shiwake.rows;
+    const kind = s1Kind(strong);          // 'oroshi' | 'recore' | null
+    const isSorted = (kind === 'oroshi' || kind === 'recore');
+    const buyV = buyValue(row);
+    // req#3（2026-09-14）：買取¥1 かつ 非リコア/非卸 は WGA 固定 → デパコス（ハイ含む）を出さない
+    const forceWga = (buyV === 1 && !isSorted);
     const depa = data.detectDepacos(name);
-    const wantDepa = !!(depa && isCosmeticRow(row));
+    const wantDepa = !!(depa && isCosmeticRow(row)) && !forceWga;
     const ban = data.detectMercariBan(name);
-    const wantBan = !!ban;
+    // req#6（2026-09-14）：デパコス/ハイデパコス表示時は重複するメルカリ禁止タグを出さない
+    const wantBan = !!ban && !wantDepa;
     if (!wantDepa && !wantBan) {
       const eb = R.getExistingMarkBar(strong);
       if (eb) { dropBadge(eb, DEPACOS_CLASS); dropBadge(eb, BAN_CLASS); }

@@ -83,21 +83,19 @@
     { id: 'diptyque',     label: 'DIPTYQUE（ディプティック）',    patterns: ['DIPTYQUE', 'ディプティック'] }
   ];
 
-  // メルカリ出品禁止（固定13・カテゴリ問わず）
+  // メルカリ出品禁止（カテゴリ問わず）
+  //  v0.8.0 (2026-09-14 現場FB #7)：デパコス／高級ブランドとの重複や誤検知を避けるため
+  //   エルメス／グッチ／シャネル／プラダ／ディオール／クレ・ド・ポー／エレガンス を除外。
+  //   これらは「デパコス（化粧品カテゴリ）」または「そもそもメルカリ禁止判定不要」のブランド。
+  //   残り6ブランド（アルマーニ／ヴァンクリーフ／コーチ／ノースフェイス／ナイキ／ルイヴィトン）を維持。
+  //   ※アルマーニは ARMANI BEAUTY（デパコス）と重複し得るが、デパコス表示時は #6 で禁止タグを抑制する。
   const MERCARI_BAN13 = [
     { id: 'armani',    label: 'ARMANI（アルマーニ）',            patterns: ['ARMANI', 'アルマーニ'] },
     { id: 'vancleef',  label: 'Van Cleef & Arpels（ヴァンクリーフ&アーペル）', patterns: ['VAN CLEEF', 'ヴァン クリーフ', 'ヴァンクリーフ', 'ヴァンクリ'] },
-    { id: 'hermes',    label: 'HERMÈS（エルメス）',              patterns: ['HERMÈS', 'HERMES', 'エルメス'] },
-    { id: 'gucci',     label: 'GUCCI（グッチ）',                 patterns: ['GUCCI', 'グッチ'] },
     { id: 'coach',     label: 'COACH（コーチ）',                 patterns: ['COACH', 'コーチ'] },
     { id: 'northface', label: 'THE NORTH FACE（ザ・ノース・フェイス）', patterns: ['NORTH FACE', 'ノースフェイス', 'ノース フェイス'] },
-    { id: 'chanel', tier: 1,    label: 'CHANEL（シャネル）',              patterns: ['CHANEL', 'シャネル'] },
     { id: 'nike',      label: 'NIKE（ナイキ）',                  patterns: ['NIKE', 'ナイキ'] },
-    { id: 'prada',     label: 'PRADA（プラダ）',                 patterns: ['PRADA', 'プラダ'] },
-    { id: 'lv',        label: 'LOUIS VUITTON（ルイ・ヴィトン）',  patterns: ['LOUIS VUITTON', 'ルイヴィトン', 'ルイ・ヴィトン', 'ヴィトン'] },
-    { id: 'dior', tier: 1,      label: 'Dior（ディオール）',              patterns: ['DIOR', 'ディオール'] },
-    { id: 'cpb', tier: 1,       label: 'Clé de Peau Beauté（クレ・ド・ポー）', patterns: ['CLÉ DE PEAU', 'CLE DE PEAU', 'クレ・ド・ポー', 'クレドポー'] },
-    { id: 'elegance',  label: 'Elegance（エレガンス）',          patterns: ['ELEGANCE', 'エレガンス'] }
+    { id: 'lv',        label: 'LOUIS VUITTON（ルイ・ヴィトン）',  patterns: ['LOUIS VUITTON', 'ルイヴィトン', 'ルイ・ヴィトン', 'ヴィトン'] }
   ];
 
   // v0.7.0: H欄〇でないのに広い親会社名パターン（資生堂/カネボウ）で誤ってデパコス判定される

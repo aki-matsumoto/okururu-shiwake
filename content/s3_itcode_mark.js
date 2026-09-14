@@ -33,6 +33,41 @@
   const PERFUME_RE = /香水|フレグランス|オーデコロン|オードトワレ|オードパルファ|オードパルファム|パルファン|パルファム|EAU\s*DE/i;
   const COSMETIC_FAMILY_RE = /化粧品|コスメ|スキンケア|メイク|ファンデーション/i;
   const SUPP_GIFT_RE = /サプリ|サプリメント|金券|ギフト券|商品券/i;
+  // 2026-09-14 現場FB：ITコード除外/例外に使うカテゴリ判定（経路全体で見る）
+  const SUPPLEMENT_RE = /サプリ|サプリメント/;
+  const IKUMOU_RE = /育毛|養毛/;
+  const DAILY_GOODS_RE = /日用雑貨/;
+  const BEAUTY_APPLIANCE_RE = /美容家電/;
+  const RECORE_DAILY_SELL_MIN = 1000;
+
+  // カテゴリ経路（親カテゴリも拾えるよう leaf でなく経路全体）
+  function categoryPath(rowText) {
+    if (!rowText) return '';
+    const txt = String(rowText).replace(/\s+/g, ' ');
+    const pdIdx = txt.search(/PD[A-Z0-9]{10,12}/);
+    let tail = pdIdx >= 0 ? txt.substring(pdIdx) : txt;
+    tail = tail.replace(/\s\-\s\/\s/g, ' / ');
+    const cut = tail.match(/^([^\[]+?)(?:\[|買取点数|販売単価|グレード|コンディション)/);
+    if (cut) tail = cut[1];
+    return tail;
+  }
+  // s1（卸/リコア）バッジ種別
+  function s1Kind(strong) {
+    try {
+      const bar = window.OKURURU.shiwake.rows.getExistingMarkBar(strong);
+      if (!bar) return null;
+      const b = bar.querySelector('.shiwake-s1-badge');
+      return b ? (b.dataset.kind || null) : null;
+    } catch (e) { return null; }
+  }
+  // s8 が「卸（同一カタログ5個以上）」を出す行か？（有効時のみ）→ ITコードは付けない
+  function isOroshiCatalog(row, strong) {
+    try {
+      const s8 = window.OKURURU.features && window.OKURURU.features.s8_wgaMark;
+      if (!s8 || !s8.isEnabled() || typeof s8.computeKind !== 'function') return false;
+      return s8.computeKind(row, strong) === 'oroshi';
+    } catch (e) { return false; }
+  }
 
   function extractCategoryFromRowText(rowText) {
     if (!rowText) return '';
@@ -62,6 +97,24 @@
     const isPrecious = u.detector.isPreciousMetalRow(row);
     const rowText = (row.textContent || '');
     const cat = extractCategoryFromRowText(rowText);
+    const path = categoryPath(rowText);
+    const kind = s1Kind(strong); // 'oroshi' | 'recore' | null
+
+    // ── 2026-09-14 現場FB：ITコード表示の除外条件 ──
+    // req#1① 卸商品は表示しない
+    if (kind === 'oroshi') return null;
+    // req#3 サプリ・育毛剤は表示しない（販売¥4,000以上でも）
+    if (SUPPLEMENT_RE.test(path) || IKUMOU_RE.test(path)) return null;
+    // req#2 買取¥1（1円まとめ）は表示しない
+    if (buyV === 1) return null;
+    // req#1① リコア商品は原則表示しない。例外：日用雑貨/美容家電 かつ 販売¥1,000以上のみ可
+    if (kind === 'recore') {
+      if ((DAILY_GOODS_RE.test(path) || BEAUTY_APPLIANCE_RE.test(path)) && sellV != null && sellV >= RECORE_DAILY_SELL_MIN) return 'recore_daily';
+      return null;
+    }
+    // req#4 卸タグ（同一カタログ5個以上）対象は ITコードを付けない
+    if (isOroshiCatalog(row, strong)) return null;
+
     const cosmetic = cat ? NON_IT_CATEGORY_RE.test(cat) : NON_IT_CATEGORY_RE.test(rowText);
     const isSmartphone = SMARTPHONE_TABLET_RE.test(rowText);
     const isBrand = BRAND_CATEGORY_RE.test(rowText);
@@ -101,7 +154,8 @@
       precious: '貴金属は買取¥' + BUY_THRESHOLD.toLocaleString() + '以上',
       brand: 'ブランド品',
       perfume50: '香水カテゴリ 買取¥50以上（未振り分け）',
-      misc50: '非コスメ系カテゴリ 買取¥50以上（未振り分け）'
+      misc50: '非コスメ系カテゴリ 買取¥50以上（未振り分け）',
+      recore_daily: 'リコア×日用雑貨/美容家電×販売¥1,000以上（例外的にITコード可）'
     };
     b.title = 'ITコード対象：' + (labels[reason] || '');
     bar.appendChild(b);

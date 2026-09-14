@@ -13,6 +13,17 @@
   const F = () => window.OKURURU.features || {};
   const rowsUtil = () => window.OKURURU.shiwake && window.OKURURU.shiwake.rows;
 
+  // 同一カタログ（PDコード）ごとの行数マップ。s8「卸タグ(買取¥50以上・同一カタログ5個以上)」判定に使う。
+  let _catCounts = {};
+  function catalogCodeOf(row) {
+    try { const m = (row.textContent || '').match(/PD[A-Z0-9]{10,12}/); return m ? m[0] : null; }
+    catch (e) { return null; }
+  }
+  function catalogCount(row) {
+    const c = catalogCodeOf(row);
+    return c ? (_catCounts[c] || 0) : 0;
+  }
+
   function evaluateAll() {
     const ru = rowsUtil();
     if (!ru || !ru.isCaseDetailPage()) return;
@@ -21,6 +32,12 @@
     if (!u || !u.selectors || typeof u.selectors.findAssessmentRows !== 'function') return;
     let rows;
     try { rows = u.selectors.findAssessmentRows() || []; } catch (e) { return; }
+    // カタログ件数を先に集計（PDコード単位で行数を数える）
+    _catCounts = {};
+    for (const row of rows) {
+      const c = catalogCodeOf(row);
+      if (c) _catCounts[c] = (_catCounts[c] || 0) + 1;
+    }
     const feat = F();
     for (const row of rows) {
       let strong = null;
@@ -72,4 +89,5 @@
 
   window.OKURURU.shiwake = window.OKURURU.shiwake || {};
   window.OKURURU.shiwake.evaluateAll = evaluateAll;
+  window.OKURURU.shiwake.catalogCount = catalogCount;
 })();

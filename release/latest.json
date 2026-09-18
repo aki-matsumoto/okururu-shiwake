@@ -1,10 +1,10 @@
 {
-  "version": "0.8.0",
-  "title": "Release v0.8.0",
+  "version": "0.8.1",
+  "title": "Release v0.8.1",
   "force_min_version": "0.0.0",
-  "message": "ITコード表示条件：①卸・リコア商品は原則表示しない（例外＝リコア×日用雑貨/美容家電×販売¥1,000以上のみ可）、②買取¥1（1円まとめ）は表示しない、③サプリ・育毛剤は表示しない（販売¥4,000以上でも）、④新「卸」タグ（同一カタログ5個以上）対象も表示しない。 / サプリ／育毛剤 専用タグを新設（💊サプリ／🧴育毛剤）。販売単価によらずカテゴリ基準で表示。ただし「買取¥1×非リコア/非",
+  "message": "卸タグが出ない不具合を修正：判定を「同一カタログ(PDコード)の行数」から「同名商品の数量合算」に変更。グレード違いでカタログが分かれても同名なら1商品として数量を合算し、合計5個以上で📦卸を表示。数量未入力の行は各1個として計上。 / リコア×美容家電のITコードが出ない不具合を修正：ReCORE実カテゴリ「美容家電・美顔器」の親＋子（美顔器／脱毛機器・シェーバー／ヘアアイロン・ドライヤー／シ",
   "min_version": "0.0.0",
-  "released_at": "2026-09-14T12:20:22.445Z",
-  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.8.0",
-  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.8.0.zip"
+  "released_at": "2026-09-18T08:49:26.007Z",
+  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.8.1",
+  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.8.1.zip"
 }

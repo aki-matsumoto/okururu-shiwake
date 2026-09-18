@@ -1,10 +1,10 @@
 {
-  "version": "0.7.2",
-  "title": "Release v0.7.2",
+  "version": "0.8.0",
+  "title": "Release v0.8.0",
   "force_min_version": "0.0.0",
-  "message": "デパコス判定に16ブランド追加（現場FB、v1.2一覧のH欄〇でなかったブランド）。Tier1（💎ハイデパコス）：LA MER／ヘレナ ルビンスタイン／シスレー／ラ・プレリー／アルマーニ ビューティ。Tier2（🏬デパコス）：センサイ／ドルチェ＆ガッバーナ／雪花秀／アモーレパシフィック／ラネージュ／ヴァレンティノ／ベネフィット／クリニーク／シャーロット ティルブリー／ローラ メルシエ／イプサ。",
+  "message": "ITコード表示条件：①卸・リコア商品は原則表示しない（例外＝リコア×日用雑貨/美容家電×販売¥1,000以上のみ可）、②買取¥1（1円まとめ）は表示しない、③サプリ・育毛剤は表示しない（販売¥4,000以上でも）、④新「卸」タグ（同一カタログ5個以上）対象も表示しない。 / サプリ／育毛剤 専用タグを新設（💊サプリ／🧴育毛剤）。販売単価によらずカテゴリ基準で表示。ただし「買取¥1×非リコア/非",
   "min_version": "0.0.0",
-  "released_at": "2026-07-27T12:55:43.658Z",
-  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.7.2",
-  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.7.2.zip"
+  "released_at": "2026-09-14T12:20:22.445Z",
+  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.8.0",
+  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.8.0.zip"
 }

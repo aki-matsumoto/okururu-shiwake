@@ -9,7 +9,7 @@
  *     1) カテゴリ＝サプリ                        → 💊 サプリ（販売単価によらずカテゴリ基準）      ［req#2］
  *     2) カテゴリ＝育毛剤                        → 🧴 育毛剤（販売単価によらずカテゴリ基準）      ［req#2］
  *     3) 買取¥50以上 かつ カテゴリ＝デフォルト   → ⚠ カテゴリ注意（カテゴリ未設定の検出）        ［req#5］
- *     4) 買取¥50以上 かつ 同一カタログ5個以上    → 📦 卸（卸行き候補。ITコードは出さない）        ［req#4］
+ *     4) 買取¥50以上 かつ 同一商品5個以上(数量合算) → 📦 卸（卸行き候補。ITコードは出さない）        ［req#4／09-18 グレード違い・カタログ分割をまとめて数量合算に変更］
  *     5) 買取¥50以上 かつ 香水カテゴリ           → 🌸 香水                                        ［既存］
  *     6) 買取¥50以上 かつ 非コスメ系             → ややこし商品                                   ［既存］
  *     7) 販売単価 ¥1 または 未入力               → WGA                                            ［既存］
@@ -48,8 +48,8 @@
 
   const PERFUME_RE = /香水|フレグランス|オーデコロン|オードトワレ|オードパルファ|オードパルファム|パルファン|パルファム|EAU\s*DE/i;
   const COSMETIC_FAMILY_RE = /化粧品|コスメ|スキンケア|メイク|ファンデーション/i;
-  const SUPP_GIFT_RE = /サプリ|サプリメント|金券|ギフト券|商品券/i;
-  const SUPPLEMENT_RE = /サプリ|サプリメント/;
+  const SUPP_GIFT_RE = /サプリ|サプリメント|健康食品|金券|ギフト券|商品券/i;
+  const SUPPLEMENT_RE = /サプリ|サプリメント|健康食品/;
   const IKUMOU_RE = /育毛|養毛/;                 // 育毛剤・育毛トニック・養毛料 等
   const DEFAULT_CAT_RE = /デフォルト/;
 
@@ -73,8 +73,8 @@
     try { return window.OKURURU.utils.selectors.parsePriceValue((window.OKURURU.utils.detector.extractRowPrices(row) || {}).sell); }
     catch (e) { return null; }
   }
-  function catalogCount(row) {
-    try { return (window.OKURURU.shiwake && typeof window.OKURURU.shiwake.catalogCount === 'function') ? window.OKURURU.shiwake.catalogCount(row) : 0; }
+  function sameProductQty(row, strong) {
+    try { return (window.OKURURU.shiwake && typeof window.OKURURU.shiwake.sameProductQty === 'function') ? window.OKURURU.shiwake.sameProductQty(row, strong) : 0; }
     catch (e) { return 0; }
   }
   function isSortedOrDepacos(strong) {
@@ -108,8 +108,8 @@
     if (IKUMOU_RE.test(path)) return 'ikumou';
     // 3) 買取¥50以上 × デフォルトカテゴリ → カテゴリ注意
     if (buy != null && buy >= BUY_MIN && DEFAULT_CAT_RE.test(path)) return 'catwarn';
-    // 4) 買取¥50以上 × 同一カタログ5個以上 → 卸
-    if (buy != null && buy >= BUY_MIN && catalogCount(row) >= CATALOG_MIN) return 'oroshi';
+    // 4) 買取¥50以上 × 同一商品5個以上（数量合算・カタログ分割/グレード違いをまとめる）→ 卸
+    if (buy != null && buy >= BUY_MIN && sameProductQty(row, strong) >= CATALOG_MIN) return 'oroshi';
     // 5) 買取¥50以上 × 香水
     if (buy != null && buy >= BUY_MIN && PERFUME_RE.test(path)) return 'perfume';
     // 6) 買取¥50以上 × 非コスメ系（化粧品/香水/サプリ/金券/育毛剤 以外）。カテゴリ未取得の行は対象外。
@@ -125,7 +125,7 @@
     supp: { cls: SUPP_CLASS, text: '💊 サプリ', style: STYLE_SUPP, title: 'カテゴリ＝サプリ（販売単価によらずカテゴリ基準）' },
     ikumou: { cls: IKUMOU_CLASS, text: '🧴 育毛剤', style: STYLE_IKUMOU, title: 'カテゴリ＝育毛剤（販売単価によらずカテゴリ基準）' },
     catwarn: { cls: CATWARN_CLASS, text: '⚠ カテゴリ注意', style: STYLE_CATWARN, title: '買取¥50以上でカテゴリが「デフォルト」のまま。カテゴリを設定してください。' },
-    oroshi: { cls: OROSHI_CLASS, text: '📦 卸', style: STYLE_OROSHI, title: '買取¥50以上＋同一カタログ5個以上 → 卸行き候補（ITコードは付けません）' },
+    oroshi: { cls: OROSHI_CLASS, text: '📦 卸', style: STYLE_OROSHI, title: '買取¥50以上＋同一商品5個以上（数量合算・グレード違い/カタログ分割もまとめる）→ 卸行き候補（ITコードは付けません）' },
     perfume: { cls: PERFUME_CLASS, text: '🌸 香水', style: STYLE_PERFUME, title: '未振り分け＋香水カテゴリ＋買取¥50以上 → 香水（ITコード対象）' },
     yaya: { cls: YAYA_CLASS, text: 'ややこし商品', style: STYLE_YAYA, title: '未振り分け＋非コスメ系カテゴリ＋買取¥50以上 → ややこし商品（ITコード対象）' }
   };

@@ -34,10 +34,12 @@
   const COSMETIC_FAMILY_RE = /化粧品|コスメ|スキンケア|メイク|ファンデーション/i;
   const SUPP_GIFT_RE = /サプリ|サプリメント|金券|ギフト券|商品券/i;
   // 2026-09-14 現場FB：ITコード除外/例外に使うカテゴリ判定（経路全体で見る）
-  const SUPPLEMENT_RE = /サプリ|サプリメント/;
+  //  2026-09-18：ReCORE実カテゴリ（カテゴリ設定 ID761/763）に合わせて実名で判定。
+  //   親「美容家電・美顔器」＋子（美顔器/脱毛機器・シェーバー/ヘアアイロン・ドライヤー/シャワーヘッド/デンタルケア）を網羅。
+  const SUPPLEMENT_RE = /サプリ|サプリメント|健康食品/;
   const IKUMOU_RE = /育毛|養毛/;
-  const DAILY_GOODS_RE = /日用雑貨/;
-  const BEAUTY_APPLIANCE_RE = /美容家電/;
+  const DAILY_GOODS_RE = /日用雑貨|生活雑貨|日用品/;   // ※実カテゴリ名を要確認（一覧に「日用雑貨」が無い）
+  const BEAUTY_APPLIANCE_RE = /美容家電|美顔器|脱毛機器|シェーバー|ヘアアイロン|ドライヤー|シャワーヘッド|デンタルケア|電動歯ブラシ/;
   const RECORE_DAILY_SELL_MIN = 1000;
 
   // カテゴリ経路（親カテゴリも拾えるよう leaf でなく経路全体）

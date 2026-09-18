@@ -13,15 +13,29 @@
   const F = () => window.OKURURU.features || {};
   const rowsUtil = () => window.OKURURU.shiwake && window.OKURURU.shiwake.rows;
 
-  // 同一カタログ（PDコード）ごとの行数マップ。s8「卸タグ(買取¥50以上・同一カタログ5個以上)」判定に使う。
-  let _catCounts = {};
-  function catalogCodeOf(row) {
-    try { const m = (row.textContent || '').match(/PD[A-Z0-9]{10,12}/); return m ? m[0] : null; }
-    catch (e) { return null; }
+  // 同一商品ごとの数量合算マップ。s8「卸タグ(買取¥50以上・同一商品5個以上)」判定に使う。
+  //  2026-09-18 現場FB：グレード違いでカタログ(PDコード)が分かれても、同名商品は同一商品として
+  //   数量を合算して数える（PDコード単位の行数では5個に届かないケースがあったため）。
+  //  キー＝正規化した商品名（先頭ノイズ記号・□■・空白を除去して大文字化）。値＝数量(買取点数)の合計。
+  const _NAME_LEAD_RE = /^[\s　●○◎◆◇★☆♪♬※‼!・･「」『』【】〔〕（）()\[\]<>＜＞|｜~～\-—–□■]+/;
+  let _prodQty = {};
+  function productKeyOf(row, strong) {
+    try {
+      let name = '';
+      if (strong && strong.textContent) name = strong.textContent;
+      else { try { name = window.OKURURU.utils.detector.extractRowProductName(row) || ''; } catch (e) { name = ''; } }
+      name = String(name).replace(_NAME_LEAD_RE, '').replace(/[\s　]+/g, '').toUpperCase();
+      return name.length >= 2 ? name : null;
+    } catch (e) { return null; }
   }
-  function catalogCount(row) {
-    const c = catalogCodeOf(row);
-    return c ? (_catCounts[c] || 0) : 0;
+  function rowQty(row) {
+    try { const n = window.OKURURU.utils.detector.extractRowQuantity(row); return (typeof n === 'number' && n > 0) ? n : 1; }
+    catch (e) { return 1; }
+  }
+  // 同一商品（同名）の数量合計を返す。s8/s3 から参照。
+  function sameProductQty(row, strong) {
+    const k = productKeyOf(row, strong);
+    return k ? (_prodQty[k] || 0) : 0;
   }
 
   function evaluateAll() {
@@ -32,11 +46,13 @@
     if (!u || !u.selectors || typeof u.selectors.findAssessmentRows !== 'function') return;
     let rows;
     try { rows = u.selectors.findAssessmentRows() || []; } catch (e) { return; }
-    // カタログ件数を先に集計（PDコード単位で行数を数える）
-    _catCounts = {};
+    // 同一商品の数量合計を先に集計（商品名単位・数量合算。カタログ分割/グレード違いをまとめる）
+    _prodQty = {};
     for (const row of rows) {
-      const c = catalogCodeOf(row);
-      if (c) _catCounts[c] = (_catCounts[c] || 0) + 1;
+      let s = null;
+      try { s = ru.findProductNameStrong(row); } catch (e) { /* noop */ }
+      const k = productKeyOf(row, s);
+      if (k) _prodQty[k] = (_prodQty[k] || 0) + rowQty(row);
     }
     const feat = F();
     for (const row of rows) {
@@ -89,5 +105,5 @@
 
   window.OKURURU.shiwake = window.OKURURU.shiwake || {};
   window.OKURURU.shiwake.evaluateAll = evaluateAll;
-  window.OKURURU.shiwake.catalogCount = catalogCount;
+  window.OKURURU.shiwake.sameProductQty = sameProductQty;
 })();

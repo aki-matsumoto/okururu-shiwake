@@ -1,13 +1,24 @@
 /**
- * background.js (MV3 service worker) — 仕分け支援拡張 アップデート通知
+ * background.js (MV3 service worker) — 仕分け支援拡張 自動更新
  *
- *  - release/latest.json を 30 分ごとに fetch（chrome.alarms）
- *  - 最新版情報を storage(OKURURU_SHIWAKE_update_info) に保存 → content の通知バナー(s7)が表示
- *  - "force_min_version" 未満なら自動 chrome.runtime.reload()（全PC確実更新）
+ * v0.8.2: GitHub raw（release/latest.json）の取得をやめ、ディスク上の manifest.json を見る方式に変更。
  *
- *  ※ VERSION_FEED_URL の GitHub リポジトリは配布整備時に作成すること。
+ * なぜ変えたか：
+ *   リポジトリを非公開にすると raw.githubusercontent.com は認証なしで必ず 404 になり、
+ *   旧 checkForUpdate() は毎回失敗して握りつぶされ、force_min_version による自動リロードが止まる
+ *   （査定支援拡張 okuruuru-mistake-prevention v1.79.54 で実測済みの同じ症状）。
+ *
+ * 仕組み（okuruuru-mistake-prevention の checkDiskVersionAndReload を移植）：
+ *   「パッケージ化されていない拡張」のリソースはその都度ディスクから読まれるので、
+ *   共有フォルダに置かれた新しい manifest.json を chrome.runtime.getURL() で読める。
+ *   一方 chrome.runtime.getManifest().version は読み込み時点の版を返す。
+ *   ディスク版の方が新しければ＝新しいファイルが届いている＝chrome.runtime.reload() する。
+ *   ネットワークに一切依存しない。30 分ごとのアラーム・ブラウザ起動時・インストール/更新時に走る。
+ *
+ * 旧 force_min_version（latest.json で指定した版未満を強制リロード）の代わり：
+ *   ディスク版 > 読み込み版 なら常にリロードするので、「共有フォルダを新版に差し替える」こと自体が
+ *   全PC強制更新の合図になる（最長 30 分以内、または Chrome 起動時）。
  */
-const VERSION_FEED_URL = 'https://raw.githubusercontent.com/aki-matsumoto/okururu-shiwake/main/release/latest.json';
 const ALARM = 'shiwake-version-check';
 
 function parseSemver(v) { return String(v || '0.0.0').split('.').map((x) => parseInt(x, 10) || 0); }
@@ -17,23 +28,24 @@ function semverLt(a, b) {
   return false;
 }
 
-async function checkForUpdate() {
+async function checkDiskVersionAndReload() {
   try {
-    const resp = await fetch(VERSION_FEED_URL, { method: 'GET', credentials: 'omit', cache: 'no-cache' });
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    const info = await resp.json();
-    if (!info || !info.version) throw new Error('no version field');
-    await chrome.storage.local.set({ OKURURU_SHIWAKE_update_info: Object.assign({}, info, { fetched_at: new Date().toISOString() }) });
-    console.info('[SHIWAKE] update check: latest=v' + info.version);
-    if (info.force_min_version) {
-      const cur = chrome.runtime.getManifest().version;
-      if (semverLt(cur, info.force_min_version)) {
-        console.warn('[SHIWAKE] FORCE RELOAD v' + cur + ' < v' + info.force_min_version);
-        setTimeout(() => { try { chrome.runtime.reload(); } catch (e) { /* noop */ } }, 5000);
-      }
+    const loaded = chrome.runtime.getManifest().version;
+    const resp = await fetch(chrome.runtime.getURL('manifest.json'), { cache: 'no-store' });
+    if (!resp.ok) return;
+    const onDisk = ((await resp.json()) || {}).version;
+    if (!onDisk || onDisk === loaded) return;
+    if (semverLt(loaded, onDisk)) {
+      console.warn('[SHIWAKE] DISK RELOAD: loaded=v' + loaded + ' < disk=v' + onDisk + ' → reloading in 5s');
+      setTimeout(() => {
+        try { chrome.runtime.reload(); } catch (e) { console.warn('[SHIWAKE] chrome.runtime.reload() failed:', e); }
+      }, 5000);
     }
-  } catch (e) { console.warn('[SHIWAKE] update check failed:', e && e.message || e); }
+  } catch (e) { console.warn('[SHIWAKE] disk version check failed:', e && e.message || e); }
 }
+
+// 呼び出し側（onInstalled / onStartup / alarm / popup の SHIWAKE_CHECK_UPDATE）の互換のため名前を残す
+async function checkForUpdate() { await checkDiskVersionAndReload(); }
 
 function registerAlarm() { try { chrome.alarms.create(ALARM, { periodInMinutes: 30 }); } catch (e) { /* noop */ } }
 

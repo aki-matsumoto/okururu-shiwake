@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "オクルウル 仕分け支援ツール (ReCORE)",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "リコア(ReCORE)買取ケース詳細画面の仕分け支援。卸/リコアマーク・デパコスマーク・メルカリ出品禁止マーク・ITコードマークを自動表示し、ITコードラベルの個別/一括印刷を補助します。",
   "action": {
     "default_popup": "popup/popup.html",
@@ -12,8 +12,7 @@
     "storage"
   ],
   "host_permissions": [
-    "https://app.recore-pos.com/*",
-    "https://raw.githubusercontent.com/aki-matsumoto/okururu-shiwake/*"
+    "https://app.recore-pos.com/*"
   ],
   "content_scripts": [
     {

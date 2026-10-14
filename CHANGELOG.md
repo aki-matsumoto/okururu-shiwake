@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.2] 2026-10-14（リポジトリ非公開化への備え）
+### Changed
+- **自動更新を「GitHub raw の latest.json を取得」から「ディスク上の manifest.json を見る」方式に変更**。リポジトリを非公開にすると `raw.githubusercontent.com` は認証なしで必ず 404 になり、旧方式では `force_min_version` の自動リロードが止まる（査定支援拡張 v1.79.54 で実測済みの同じ症状）。→ 査定支援拡張の `checkDiskVersionAndReload()` を移植：`chrome.runtime.getURL('manifest.json')` で共有フォルダ上の版を読み、読み込み中の版より新しければ `chrome.runtime.reload()`。ネットワーク不要。30分ごと・Chrome起動時・インストール/更新時に実行。
+- `force_min_version` は不要になった（共有フォルダを新版に差し替えること自体が全PC更新の合図になる）。`release/latest.json` は CI が引き続き生成するが、拡張からは読まない。
+- `manifest.json` の `host_permissions` から `raw.githubusercontent.com` を削除（通信先が ReCORE のみになる）。
+- **この版を入れるときだけは手動で再読み込みが必要**（旧版には新しい判定が入っていないため）。0.8.2 以降は共有フォルダの差し替えで自動追従する。
+
 ## [0.8.1] 2026-09-18（現場FB反映）
 ### Fixed
 - **卸タグが出ない不具合を修正**：判定を「同一カタログ(PDコード)の行数」から「**同名商品の数量合算**」に変更。グレード違いでカタログが分かれても同名なら1商品として数量を合算し、合計5個以上で📦卸を表示。数量未入力の行は各1個として計上。

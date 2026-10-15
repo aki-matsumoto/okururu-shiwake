@@ -1,10 +1,10 @@
 {
-  "version": "0.8.3",
-  "title": "Release v0.8.3",
+  "version": "0.8.4",
+  "title": "Release v0.8.4",
   "force_min_version": "0.0.0",
-  "message": "商品名先頭が「■」でも、グレードが中古C以下（中古C／中古D(ジャンク)）かつ買取単価¥1以下（¥0含む）の行は 🏯 リコア マークを付けない。既に表示中のマークも外れる。判定は `s1_oroshi_recore_mark.js` の `shouldSuppressRecore()` に一本化。リコアマークを見ている後続機能（ITコード・WGA・ブランド等）もこの行を「リコアでない」として扱う",
+  "message": "買取不可も対象に追加。グレードが 買取不可（GRADE_MAP id=9）かつ買取単価¥1以下の「■」行も 🏯 リコア マークを付けない（`LOW_GRADE_IDS = [4, 5, 9]`）。",
   "min_version": "0.0.0",
-  "released_at": "2026-10-15T08:30:00.216Z",
-  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.8.3",
-  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.8.3.zip"
+  "released_at": "2026-10-15T08:38:56.395Z",
+  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.8.4",
+  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.8.4.zip"
 }

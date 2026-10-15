@@ -5,4 +5,5 @@ const { execSync } = require('child_process');
 const path = require('path');
 try {
   execSync('node ' + JSON.stringify(path.resolve(__dirname, '..', 'tests', 'brand_detect.test.js')), { stdio: 'inherit' });
+  execSync('node ' + JSON.stringify(path.resolve(__dirname, '..', 'tests', 'recore_suppress.test.js')), { stdio: 'inherit' });
 } catch (e) { process.exit(1); }

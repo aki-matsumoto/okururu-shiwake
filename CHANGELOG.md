@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.8.3] 2026-10-15（リコアマークの除外条件）
+### Changed
+- **商品名先頭が「■」でも、グレードが中古C以下（中古C／中古D(ジャンク)）かつ買取単価¥1以下（¥0含む）の行は 🏯 リコア マークを付けない**。既に表示中のマークも外れる。判定は `s1_oroshi_recore_mark.js` の `shouldSuppressRecore()` に一本化。リコアマークを見ている後続機能（ITコード・WGA・ブランド等）もこの行を「リコアでない」として扱う。
+- グレードまたは買取単価が取れない行（空欄・読み取り不可）は従来どおりリコアマークを付ける。ReCORE上の商品名（■の文字）自体は書き換えない。
+
 ## [0.8.2] 2026-10-14（リポジトリ非公開化への備え）
 ### Changed
 - **自動更新を「GitHub raw の latest.json を取得」から「ディスク上の manifest.json を見る」方式に変更**。リポジトリを非公開にすると `raw.githubusercontent.com` は認証なしで必ず 404 になり、旧方式では `force_min_version` の自動リロードが止まる（査定支援拡張 v1.79.54 で実測済みの同じ症状）。→ 査定支援拡張の `checkDiskVersionAndReload()` を移植：`chrome.runtime.getURL('manifest.json')` で共有フォルダ上の版を読み、読み込み中の版より新しければ `chrome.runtime.reload()`。ネットワーク不要。30分ごと・Chrome起動時・インストール/更新時に実行。

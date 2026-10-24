@@ -4,6 +4,8 @@
 
 .NOTE
     2026-06 改訂: OneDrive 同期(robocopy)方式を廃止。C:\dev\okururu-shiwake が唯一の作業場所。
+    現場の共有フォルダへの配布は別スクリプト: main マージ後に .\scripts\deploy-field.ps1 を実行する
+    （FIELD_ONEDRIVE_SHIWAKE 宛て。詳細は INSTALL.md「D. 配布」）。
     最新 main から始めたい場合は先に:
         git checkout main; git pull
     その後 C:\dev のファイルを編集してから本スクリプトを実行する。

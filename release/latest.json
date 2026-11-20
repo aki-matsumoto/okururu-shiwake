@@ -1,10 +1,10 @@
 {
-  "version": "0.8.4",
-  "title": "Release v0.8.4",
+  "version": "0.8.5",
+  "title": "Release v0.8.5",
   "force_min_version": "0.0.0",
-  "message": "買取不可も対象に追加。グレードが 買取不可（GRADE_MAP id=9）かつ買取単価¥1以下の「■」行も 🏯 リコア マークを付けない（`LOW_GRADE_IDS = [4, 5, 9]`）。",
+  "message": "サプリも買取¥50以上で同名商品の数量合算が5個以上なら「卸」を表示する。 / 対象の化粧品は販売単価¥4,000未満かつ中古B/C/Dの場合に「WGA」を表示し、価格確認の対象から外す。卸・リコア・デパコスの表示を優先する。 / 未振り分けの香水は販売単価¥3,000以上でITコードの対象とし、香水系カテゴリ経路ではデパコスを表示しない。",
   "min_version": "0.0.0",
-  "released_at": "2026-10-15T08:38:56.395Z",
-  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.8.4",
-  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.8.4.zip"
+  "released_at": "2026-11-20T04:18:22.830Z",
+  "notes_url": "https://github.com/aki-matsumoto/okururu-shiwake/releases/tag/v0.8.5",
+  "zip_url": "https://github.com/aki-matsumoto/okururu-shiwake/archive/refs/tags/v0.8.5.zip"
 }

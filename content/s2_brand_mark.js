@@ -22,11 +22,12 @@
   const STYLE_BAN = 'padding:2px 8px;background:linear-gradient(180deg,#F87171 0%,#B91C1C 100%);color:#fff;border:1px solid #991B1B;border-radius:3px;font-size:11px;font-weight:700;white-space:nowrap';
 
   const COSMETIC_CATEGORY_RE = /(化粧品|コスメ|スキンケア|メイク|ファンデーション|香水|フレグランス|オーデコロン|オードトワレ|オードパルファ|EAU\s*DE\s*|【\s*デフォルト\s*】|デフォルト)/i;
+  const PERFUME_PATH_RE = /香水|フレグランス|オーデコロン|オードトワレ|オードパルファ|EAU\s*DE/i;
   const EXCLUDE_NON_COSMETIC_RE = /(ファッション雑貨|日用雑貨|服飾小物|バッグ|財布|ベルト|スカーフ|時計|腕時計|ジュエリー|宝飾|アクセサリー|スマートフォン[・･]?タブレット|スマホ|家電|オーディオ|カメラ|ゲーム|衣料|アパレル|シャツ|ジャケット|コート|ワンピース|スカート|パンツ|靴|スニーカー|サプリ|食品|飲料)/i;
 
   const _rowCosmeCache = new WeakMap();
 
-  function extractCategoryFromRowText(rowText) {
+  function categoryPath(rowText) {
     if (!rowText) return '';
     const txt = String(rowText).replace(/\s+/g, ' ');
     const pdIdx = txt.search(/PD[A-Z0-9]{10,12}/);
@@ -34,7 +35,15 @@
     tail = tail.replace(/\s\-\s\/\s/g, ' / ');
     const cut = tail.match(/^([^\[]+?)(?:\[|買取点数|販売単価|グレード|コンディション)/);
     if (cut) tail = cut[1];
-    const segs = tail.split('/').map(s => s.trim()).filter(s => s && !/^PD[A-Z0-9]{10,12}$/.test(s) && s !== '-');
+    return tail;
+  }
+
+  function isPerfumePath(path) {
+    return PERFUME_PATH_RE.test(path);
+  }
+
+  function extractCategoryFromRowText(rowText) {
+    const segs = categoryPath(rowText).split('/').map(s => s.trim()).filter(s => s && !/^PD[A-Z0-9]{10,12}$/.test(s) && s !== '-');
     return segs.length ? segs[segs.length - 1] : '';
   }
 
@@ -92,7 +101,7 @@
     // req#3（2026-09-14）：買取¥1 かつ 非リコア/非卸 は WGA 固定 → デパコス（ハイ含む）を出さない
     const forceWga = (buyV === 1 && !isSorted);
     const depa = data.detectDepacos(name);
-    const wantDepa = !!(depa && isCosmeticRow(row)) && !forceWga;
+    const wantDepa = !!(depa && isCosmeticRow(row)) && !forceWga && !isPerfumePath(categoryPath(row.textContent || ''));
     const ban = data.detectMercariBan(name);
     // req#6（2026-09-14）：デパコス/ハイデパコス表示時は重複するメルカリ禁止タグを出さない
     const wantBan = !!ban && !wantDepa;
@@ -122,6 +131,6 @@
   window.OKURURU.features.s2_brandMark = {
     init, markRow, removeAll, FEATURE_KEY,
     isEnabled: () => enabled, setEnabled: (v) => { enabled = v; if (!v) removeAll(); },
-    __test: { isCosmeticRow, extractCategoryFromRowText }
+    __test: { isCosmeticRow, extractCategoryFromRowText, isPerfumePath }
   };
 })();

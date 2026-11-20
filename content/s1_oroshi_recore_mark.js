@@ -49,20 +49,6 @@
     if (gradeId == null || LOW_GRADE_IDS.indexOf(Number(gradeId)) < 0) return false;
     return n <= RECORE_SUPPRESS_BUY_MAX;
   }
-  // 行からグレードIDを取得：①行内のグレード select ②無ければ行テキストの「グレード ○○」
-  function rowGradeId(row) {
-    try {
-      const u = window.OKURURU.utils;
-      const sel = u.selectors.findRowGradeSelect(row);
-      if (sel) return u.selectors.detectGradeId(sel);
-      const gm = u.GRADE_MAP || {};
-      const m = String(row.textContent || '').replace(/\s+/g, ' ').match(/グレード\s*[:：]?\s*([^\s/｜|]+)/);
-      if (!m) return null;
-      const ids = Object.keys(gm).sort((a, b) => gm[b].name.length - gm[a].name.length);
-      for (const id of ids) { if (m[1].indexOf(gm[id].name) === 0) return parseInt(id, 10); }
-    } catch (e) { /* noop */ }
-    return null;
-  }
   function rowBuyPrice(row) {
     try {
       const p = window.OKURURU.utils.detector.extractRowPrices(row) || {};
@@ -71,7 +57,7 @@
   }
   function isRecoreSuppressedRow(row) {
     if (!row) return false;
-    return shouldSuppressRecore(rowGradeId(row), rowBuyPrice(row));
+    return shouldSuppressRecore(window.OKURURU.utils.selectors.getRowGradeId(row), rowBuyPrice(row));
   }
 
   function markRow(row, strong) {

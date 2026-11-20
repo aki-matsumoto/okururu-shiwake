@@ -7,7 +7,7 @@
  *
  *  対象（チェック対象）：
  *    「WGA以外の商品（価格確認が必要な商品）」
- *    = 販売単価が ¥1／未入力（＝WGA相当）以外の、実価格が入った商品。
+ *    = 実価格が入っており、買取¥1と s8 の WGA 判定の対象外の商品。
  *
  *  例外（社員確認が必要な商品）：対象のうち以下は未チェックでも続行可。
  *    (a) 買取単価 ¥3,000 以上（カテゴリ不問）
@@ -72,13 +72,12 @@
     return tail;
   }
 
-  // 対象＝WGA以外（販売¥1/未入力でない＝実価格あり）
-  function needsPriceCheck(row) {
+  function needsPriceCheck(row, strong) {
     var sell = sellValue(row);
     if (sell === null || sell === 1) return false; // WGA相当（販売¥1/未入力）は対象外
     var buy = buyValue(row);
     if (buy === 1) return false; // 1円まとめ（買取¥1）は対象外
-    return true;
+    return window.OKURURU.features.s8_wgaMark.computeKind(row, strong) !== 'wga';
   }
 
   // 例外＝社員確認が必要
@@ -148,7 +147,7 @@
     ensureLoaded();
     var R = window.OKURURU.shiwake.rows;
 
-    if (!needsPriceCheck(row)) {
+    if (!needsPriceCheck(row, strong)) {
       var eb = R.getExistingMarkBar(strong);
       var ex = eb && eb.querySelector('.' + BADGE_CLASS);
       if (ex) ex.remove();

@@ -581,6 +581,19 @@
     return null;
   }
 
+  // 行からグレードIDを取得：①行内のグレード select ②無ければ行テキストの「グレード ○○」
+  function getRowGradeId(row) {
+    try {
+      const sel = findRowGradeSelect(row);
+      if (sel) return detectGradeId(sel);
+      const m = String(row.textContent || '').replace(/\s+/g, ' ').match(/グレード\s*[:：]?\s*([^\s/｜|]+)/);
+      if (!m) return null;
+      const ids = Object.keys(GRADE_MAP).sort((a, b) => GRADE_MAP[b].name.length - GRADE_MAP[a].name.length);
+      for (const id of ids) { if (m[1].indexOf(GRADE_MAP[id].name) === 0) return parseInt(id, 10); }
+    } catch (e) { /* noop */ }
+    return null;
+  }
+
   window.OKURURU.utils.SELECTORS = SELECTORS;
   window.OKURURU.utils.GRADE_MAP = GRADE_MAP;
   window.OKURURU.utils.selectors = {
@@ -599,6 +612,7 @@
     findTabNavCandidates,
     findRowPriceInputs,
     findRowGradeSelect,
+    getRowGradeId,
     parsePriceValue,
     getCaseIdFromUrl,
     getMemberIdFromCasePage,

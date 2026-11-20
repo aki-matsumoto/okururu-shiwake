@@ -8,9 +8,8 @@
  *   (3) 販売¥4,000以上（全カテゴリ）
  *   (4) 貴金属：買取¥3,000以上
  *   (5) ブランド品 かつ 非コスメ系
- *   (6) 【未振り分けのみ】香水カテゴリ かつ 買取¥50以上
+ *   (6) 【未振り分けのみ】香水カテゴリ かつ 販売¥3,000以上
  *   (7) 【未振り分けのみ】非コスメ系（化粧品/香水/サプリ/金券 以外）かつ 買取¥50以上
- *  ※(6)(7)はクロさん 2026-06-17 追加（ややこし商品/香水マークと同条件）。
  */
 (function () {
   'use strict';
@@ -21,6 +20,7 @@
   const BADGE_CLASS = 'shiwake-itcode-badge';
   const BUY_THRESHOLD = 3000;
   const SELL_THRESHOLD = 4000;
+  const PERFUME_SELL_MIN = 3000;
   const SMARTPHONE_THRESHOLD = 1;
   const BUY_MIN_LOW = 50;
   let enabled = true;
@@ -91,6 +91,13 @@
     } catch (e) { return true; }
   }
 
+  function perfumeItcode({ sell, cat, unsorted }) {
+    if (unsorted && PERFUME_RE.test(cat) && Number.isFinite(sell) && sell >= PERFUME_SELL_MIN) {
+      return 'perfume50';
+    }
+    return null;
+  }
+
   function evaluate(row, strong) {
     const u = window.OKURURU.utils;
     const prices = u.detector.extractRowPrices(row) || {};
@@ -117,7 +124,8 @@
     // req#4 卸タグ（同一カタログ5個以上）対象は ITコードを付けない
     if (isOroshiCatalog(row, strong)) return null;
 
-    const cosmetic = cat ? NON_IT_CATEGORY_RE.test(cat) : NON_IT_CATEGORY_RE.test(rowText);
+    const perfume = PERFUME_RE.test(cat);
+    const cosmetic = perfume || (cat ? NON_IT_CATEGORY_RE.test(cat) : NON_IT_CATEGORY_RE.test(rowText));
     const isSmartphone = SMARTPHONE_TABLET_RE.test(rowText);
     const isBrand = BRAND_CATEGORY_RE.test(rowText);
     if (isSmartphone && buyV != null && buyV >= SMARTPHONE_THRESHOLD) return 'smartphone';
@@ -125,9 +133,10 @@
     if (sellV != null && sellV >= SELL_THRESHOLD) return 'sell';
     if (isPrecious && buyV != null && buyV >= BUY_THRESHOLD) return 'precious';
     if (isBrand && !cosmetic) return 'brand';
-    // 未振り分け＋買取¥50以上（香水 / 非コスメ系）
-    if (buyV != null && buyV >= BUY_MIN_LOW && cat && isUnsorted(strong)) {
-      if (PERFUME_RE.test(cat)) return 'perfume50';
+    const unsorted = isUnsorted(strong);
+    if (perfume) return perfumeItcode({ sell: sellV, cat, unsorted });
+    // 未振り分け＋買取¥50以上（非コスメ系）
+    if (buyV != null && buyV >= BUY_MIN_LOW && cat && unsorted) {
       if (!COSMETIC_FAMILY_RE.test(cat) && !SUPP_GIFT_RE.test(cat)) return 'misc50';
     }
     return null;
@@ -155,7 +164,7 @@
       sell: '販売¥' + SELL_THRESHOLD.toLocaleString() + '以上（全カテゴリ）',
       precious: '貴金属は買取¥' + BUY_THRESHOLD.toLocaleString() + '以上',
       brand: 'ブランド品',
-      perfume50: '香水カテゴリ 買取¥50以上（未振り分け）',
+      perfume50: '香水カテゴリ 販売¥3,000以上（未振り分け）',
       misc50: '非コスメ系カテゴリ 買取¥50以上（未振り分け）',
       recore_daily: 'リコア×日用雑貨/美容家電×販売¥1,000以上（例外的にITコード可）'
     };
@@ -173,6 +182,7 @@
 
   window.OKURURU.features.s3_itCodeMark = {
     init, markRow, removeAll, countMarked, FEATURE_KEY, BADGE_CLASS,
+    __test: { perfumeItcode },
     isEnabled: () => enabled, setEnabled: (v) => { enabled = v; if (!v) removeAll(); }
   };
 })();

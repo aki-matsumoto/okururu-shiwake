@@ -4,20 +4,9 @@
  * S8：未振り分け商品のテキストマーク（WGA / サプリ / 育毛剤 / カテゴリ注意 / 卸 / 香水 / ややこし）
  *   前提：卸(□)・リコア(■)・デパコス のどれも無い「未振り分け」行のみ対象。
  *
- *   ▼ 2026-09-14 現場FB で判定を再整理。競合時は下記の優先順で「1つだけ」表示する。
- *     0) 買取単価 ¥1 かつ 非リコア/非卸        → WGA（固定。デパコス/ややこし等は出さない）  ［req#3］
- *     1) カテゴリ＝サプリ                        → 💊 サプリ（販売単価によらずカテゴリ基準）      ［req#2］
- *     2) カテゴリ＝育毛剤                        → 🧴 育毛剤（販売単価によらずカテゴリ基準）      ［req#2］
- *     3) 買取¥50以上 かつ カテゴリ＝デフォルト   → ⚠ カテゴリ注意（カテゴリ未設定の検出）        ［req#5］
- *     4) 買取¥50以上 かつ 同一商品5個以上(数量合算) → 📦 卸（卸行き候補。ITコードは出さない）        ［req#4／09-18 グレード違い・カタログ分割をまとめて数量合算に変更］
- *     5) 買取¥50以上 かつ 香水カテゴリ           → 🌸 香水                                        ［既存］
- *     6) 買取¥50以上 かつ 非コスメ系             → ややこし商品                                   ［既存］
- *     7) 販売単価 ¥1 または 未入力               → WGA                                            ［既存］
- *
- *   ITコード（s3）との対応：
- *     - サプリ / 育毛剤 / 卸(カタログ5+) の3種は s3 側で ITコード を付けない（クロさん 2026-09-14）。
- *     - 香水 / ややこし / カテゴリ注意 は従来どおり ITコード が付く（買取¥50以上・未振り分け）。
- *   computeKind(row, strong) を純関数として公開し、s3 が同じ判定を参照する。
+ *   優先順：買取¥1のWGA → カテゴリ注意 → 卸 → 化粧品WGA → サプリ → 育毛剤
+ *            → 香水 → ややこし → 販売¥1/未入力のWGA。表示は1行1バッジ。
+ *   computeKind(row, strong) は s3（ITコード）と s9（価格確認）でも参照する。
  */
 (function () {
   'use strict';
@@ -36,6 +25,8 @@
   const ALL_CLASSES = [WGA_CLASS, PERFUME_CLASS, YAYA_CLASS, SUPP_CLASS, IKUMOU_CLASS, OROSHI_CLASS, CATWARN_CLASS, MATOME_CLASS];
   const BUY_MIN = 50;
   const CATALOG_MIN = 5;
+  const COSMETIC_WGA_SELL_LIMIT = 4000;
+  const COSMETIC_WGA_GRADE_IDS = [3, 4, 5];
   let enabled = true;
 
   const STYLE_WGA = 'padding:2px 8px;background:linear-gradient(180deg,#64748B 0%,#334155 100%);color:#fff;border:1px solid #1E293B;border-radius:3px;font-size:11px;font-weight:700;white-space:nowrap';
@@ -65,14 +56,6 @@
     if (cut) tail = cut[1];
     return tail;
   }
-  function buyValue(row) {
-    try { return window.OKURURU.utils.selectors.parsePriceValue((window.OKURURU.utils.detector.extractRowPrices(row) || {}).buy); }
-    catch (e) { return null; }
-  }
-  function sellValue(row) {
-    try { return window.OKURURU.utils.selectors.parsePriceValue((window.OKURURU.utils.detector.extractRowPrices(row) || {}).sell); }
-    catch (e) { return null; }
-  }
   function sameProductQty(row, strong) {
     try { return (window.OKURURU.shiwake && typeof window.OKURURU.shiwake.sameProductQty === 'function') ? window.OKURURU.shiwake.sameProductQty(row, strong) : 0; }
     catch (e) { return 0; }
@@ -90,43 +73,53 @@
     ALL_CLASSES.forEach(function (c) { const e = bar.querySelector('.' + c); if (e) e.remove(); });
   }
 
-  /**
-   * 未振り分け行の分類（純関数）。卸/リコア/デパコスが付いた行は null（対象外）。
-   *  返り値: 'wga' | 'supp' | 'ikumou' | 'catwarn' | 'oroshi' | 'perfume' | 'yaya' | null
-   *  s3（ITコード）からも参照される。
-   */
-  function computeKind(row, strong) {
-    if (!row || !strong) return null;
-    if (isSortedOrDepacos(strong)) return null; // 卸/リコア/デパコスは対象外
-    const buy = buyValue(row);
-    // 0) 買取¥1（非リコア/非卸）→ WGA 固定
+  function decideKind({ buy, sell, path, gradeId, sameQty, sortedOrDepa }) {
+    if (sortedOrDepa) return null;
     if (buy === 1) return 'wga';
-    const path = categoryPath(row.textContent || '');
-    // 1) サプリ（価格によらずカテゴリ基準）
-    if (SUPPLEMENT_RE.test(path)) return 'supp';
-    // 2) 育毛剤（価格によらずカテゴリ基準）
-    if (IKUMOU_RE.test(path)) return 'ikumou';
-    // 3) 買取¥50以上 × デフォルトカテゴリ → カテゴリ注意
-    if (buy != null && buy >= BUY_MIN && DEFAULT_CAT_RE.test(path)) return 'catwarn';
-    // 4) 買取¥50以上 × 同一商品5個以上（数量合算・カタログ分割/グレード違いをまとめる）→ 卸
-    if (buy != null && buy >= BUY_MIN && sameProductQty(row, strong) >= CATALOG_MIN) return 'oroshi';
-    // 5) 買取¥50以上 × 香水
-    if (buy != null && buy >= BUY_MIN && PERFUME_RE.test(path)) return 'perfume';
-    // 6) 買取¥50以上 × 非コスメ系（化粧品/香水/サプリ/金券/育毛剤 以外）。カテゴリ未取得の行は対象外。
-    if (buy != null && buy >= BUY_MIN && path && !COSMETIC_FAMILY_RE.test(path) && !SUPP_GIFT_RE.test(path) && !PERFUME_RE.test(path) && !IKUMOU_RE.test(path)) return 'yaya';
-    // 7) 販売¥1/未入力 → WGA
-    const sell = sellValue(row);
+
+    const meetsBuyMin = buy != null && buy >= BUY_MIN;
+    if (meetsBuyMin && DEFAULT_CAT_RE.test(path)) return 'catwarn';
+    if (meetsBuyMin && sameQty >= CATALOG_MIN) return 'oroshi';
+
+    const cosmetic = COSMETIC_FAMILY_RE.test(path);
+    const perfume = PERFUME_RE.test(path);
+    const supplement = SUPPLEMENT_RE.test(path);
+    const ikumou = IKUMOU_RE.test(path);
+    if (cosmetic && !perfume && !supplement && !ikumou &&
+        Number.isFinite(sell) && sell < COSMETIC_WGA_SELL_LIMIT &&
+        COSMETIC_WGA_GRADE_IDS.includes(gradeId)) return 'wga';
+    if (supplement) return 'supp';
+    if (ikumou) return 'ikumou';
+    if (meetsBuyMin && perfume) return 'perfume';
+    if (meetsBuyMin && path && !cosmetic && !SUPP_GIFT_RE.test(path)) return 'yaya';
     if (sell === 1 || sell === null) return 'wga';
     return null;
   }
 
+  function computeKind(row, strong) {
+    if (!row || !strong) return null;
+    const { detector, selectors } = window.OKURURU.utils;
+    let prices;
+    try { prices = detector.extractRowPrices(row) || {}; }
+    catch (e) { prices = {}; }
+    const buy = selectors.parsePriceValue(prices.buy);
+    return decideKind({
+      buy,
+      sell: selectors.parsePriceValue(prices.sell),
+      path: categoryPath(row.textContent || ''),
+      gradeId: selectors.getRowGradeId(row),
+      sameQty: buy != null && buy >= BUY_MIN ? sameProductQty(row, strong) : 0,
+      sortedOrDepa: isSortedOrDepacos(strong)
+    });
+  }
+
   const MAP = {
-    wga: { cls: WGA_CLASS, text: 'WGA', style: STYLE_WGA, title: '未振り分け＋（買取¥1 または 販売¥1/未入力）→ WGA' },
+    wga: { cls: WGA_CLASS, text: 'WGA', style: STYLE_WGA, title: '未振り分け＋（買取¥1、販売¥1/未入力、または化粧品で販売¥4,000未満かつ中古B/C/D）→ WGA' },
     supp: { cls: SUPP_CLASS, text: '💊 サプリ', style: STYLE_SUPP, title: 'カテゴリ＝サプリ（販売単価によらずカテゴリ基準）' },
     ikumou: { cls: IKUMOU_CLASS, text: '🧴 育毛剤', style: STYLE_IKUMOU, title: 'カテゴリ＝育毛剤（販売単価によらずカテゴリ基準）' },
     catwarn: { cls: CATWARN_CLASS, text: '⚠ カテゴリ注意', style: STYLE_CATWARN, title: '買取¥50以上でカテゴリが「デフォルト」のまま。カテゴリを設定してください。' },
     oroshi: { cls: OROSHI_CLASS, text: '📦 卸', style: STYLE_OROSHI, title: '買取¥50以上＋同一商品5個以上（数量合算・グレード違い/カタログ分割もまとめる）→ 卸行き候補（ITコードは付けません）' },
-    perfume: { cls: PERFUME_CLASS, text: '🌸 香水', style: STYLE_PERFUME, title: '未振り分け＋香水カテゴリ＋買取¥50以上 → 香水（ITコード対象）' },
+    perfume: { cls: PERFUME_CLASS, text: '🌸 香水', style: STYLE_PERFUME, title: '未振り分け＋香水カテゴリ＋買取¥50以上 → 香水' },
     yaya: { cls: YAYA_CLASS, text: 'ややこし商品', style: STYLE_YAYA, title: '未振り分け＋非コスメ系カテゴリ＋買取¥50以上 → ややこし商品（ITコード対象）' }
   };
 
@@ -160,6 +153,7 @@
 
   window.OKURURU.features.s8_wgaMark = {
     init, markRow, removeAll, computeKind, FEATURE_KEY,
+    __test: { decideKind },
     isEnabled: function () { return enabled; }, setEnabled: function (v) { enabled = v; if (!v) removeAll(); }
   };
 })();
